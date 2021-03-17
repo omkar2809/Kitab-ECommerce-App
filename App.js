@@ -11,6 +11,7 @@ import SignUp from './Components/SignUp'
 import Home from './Components/Home'
 import Cart from './Components/Cart'
 import Orders from './Components/Orders'
+import BookForm from './Components/BookForm'
 
 
 var userInfo = { isAuthenticated: false }
@@ -22,7 +23,7 @@ function setUserInfo() {
             let userData = JSON.parse(user);
             console.log(user)
             if (userData) {
-                userInfo = {userData: userData, isAuthenticated: isAuthenticated(user)}
+                userInfo = {userData: userData, isAuthenticated: isAuthenticated(userData)}
             }
             else {
                 userInfo = {isAuthenticated: false}
@@ -48,7 +49,7 @@ const HomeNavigator = createStackNavigator({
         },
         headerLeft: <Icon name='menu' size={38}  color="#ffeb3b" iconStyle={{marginLeft: 10}} onPress = {() => navigation.toggleDrawer()}/>
     })
-});
+})
 
 const LoginNavigator = createStackNavigator({
     Login: {
@@ -82,7 +83,12 @@ const LoginNavigator = createStackNavigator({
 });
 
 const CartNavigator = createStackNavigator({
-    Cart: {screen: Cart}
+    Cart: {
+        screen: Cart,
+        params: {
+            userInfo: userInfo
+        }
+    }
     }, {
     defaultNavigationOptions: ({navigation}) => ({
         headerStyle: {
@@ -95,10 +101,15 @@ const CartNavigator = createStackNavigator({
         },
         headerLeft: <Icon name='menu' size={38}  color="#ffeb3b" iconStyle={{marginLeft: 10}} onPress = {() => navigation.toggleDrawer()}/>
     })
-});
+})
 
 const OrdersNavigator = createStackNavigator({
-    Orders: {screen: Orders}
+    Orders: {
+        screen: Orders,
+        params: {
+            userInfo: userInfo
+        }
+    }
     }, {
     defaultNavigationOptions: ({navigation}) => ({
         headerStyle: {
@@ -111,7 +122,28 @@ const OrdersNavigator = createStackNavigator({
         },
         headerLeft: <Icon name='menu' size={38}  color="#ffeb3b" iconStyle={{marginLeft: 10}} onPress = {() => navigation.toggleDrawer()}/>
     })
-});
+})
+
+const SellBookNavigator = createStackNavigator({
+    SellBook: {
+        screen: BookForm,
+        params: {
+            userInfo: userInfo
+        }
+    }
+    }, {
+    defaultNavigationOptions: ({navigation}) => ({
+        headerStyle: {
+            backgroundColor: '#00695c',
+            height: 70
+        },
+        headerTintColor: '#ffeb3b',
+        headerTitleStyle: {
+            color: '#ffeb3b'
+        },
+        headerLeft: <Icon name='menu' size={38}  color="#ffeb3b" iconStyle={{marginLeft: 10}} onPress = {() => navigation.toggleDrawer()}/>
+    })
+})
 
 const CustomDrawerContentComponent = (props) => (
     <ScrollView>
@@ -121,7 +153,7 @@ const CustomDrawerContentComponent = (props) => (
                     <Image source={require('./assets/book.png')} style={styles.drawerImage} />
                 </View>
                 <View style={{flex: 2}}>
-                    <Text style={styles.drawerHeaderText}>eKitab</Text>
+                    <Text style={styles.drawerHeaderText}>Kitab</Text>
                 </View>
             </View>
             <DrawerItems {...props} />
@@ -130,6 +162,7 @@ const CustomDrawerContentComponent = (props) => (
                 <TouchableOpacity onPress={() => { deleteUser().then(() => {
                     userInfo = {isAuthenticated: false}
                     props.navigation.toggleDrawer()
+                    props.navigation.navigate('Home')
                 }) }} style={styles.loginBtn}>
                         <Text style={styles.loginText}>Log Out</Text>
                 </TouchableOpacity>
@@ -159,6 +192,13 @@ const MainNavigator = createDrawerNavigator({
         navigationOptions: {
             title: 'Orders',
             drawerLabel: 'Orders',
+        }
+    },
+    SellBook: {
+        screen: SellBookNavigator,
+        navigationOptions: {
+            title: 'Sell Book',
+            drawerLabel: 'Sell Book',
         }
     },
     Login: {

@@ -10,4 +10,12 @@ export const signUp = (payload) => {
     return axios.post(`${baseUrl}/signup`, payload)
 }
 
+export const uploadImageDemo = (payload) => {
+    return axios.post(`${baseUrl}/uploadDemo`, payload)
+}
+
+export const addBook = (payload, headers) => {
+    return axios.post(`${baseUrl}/addBook`, payload, headers)
+}
+
 export default req = { login, signUp }

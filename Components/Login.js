@@ -5,13 +5,16 @@ import { setUserData } from '../utils/user'
 import Toast from 'react-native-tiny-toast'
 
 export default class Login extends React.Component {
-    state = {
-        email:"",
-        password:""
+    constructor(props) {
+        super(props)
+        this.state = {
+                email:"",
+                password:""
+        }
     }
 
     handleLogin = () => {
-        const toast = Toast.showLoading('Loading...')
+        const toast = Toast.showLoading('')
         login({...this.state})
         .then(res => {
             if(res.status == 200){
@@ -33,13 +36,23 @@ export default class Login extends React.Component {
             console.log(err)
         })
     }
+
+    componentDidMount() {
+        this._navListener = this.props.navigation.addListener('didFocus', () => {
+            console.log('update')
+        });
+    }
     
+    componentWillUnmount() {
+        this._navListener.remove()
+    }
+
     render(){
         const {navigate} = this.props.navigation;
         return (
             <View style={styles.container}>
                 <Image source={require('../assets/book.png')} style={styles.logoImage} />
-                <Text style={styles.logo}>eKitab</Text>
+                <Text style={styles.logo}>Kitab</Text>
                 <View style={styles.inputView} >
                     <TextInput  
                         style={styles.inputText}

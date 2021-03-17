@@ -1,45 +1,3 @@
-// import React from 'react'
-// import { View, Text } from 'react-native'
-// import { Card, Button } from 'react-native-elements'
-
-// export default function BookCard({book}) {
-//     return (
-//         <View key={book.id}>
-//             <Card.Title>{book.title}</Card.Title>
-//             <Card.Divider/>
-//             <Card.Image source={book.imageUrl}>
-//                 <Text style={{marginBottom: 10}}>
-//                     {book.price}
-//                 </Text>
-//                 <Button
-//                 icon={<Icon name='code' color='#ffffff' />}
-//                 buttonStyle={{borderRadius: 0, marginLeft: 0, marginRight: 2, marginBottom: 0}}
-//                 title='VIEW NOW' />
-//                 <Button
-//                 buttonStyle={{borderRadius: 0, marginLeft: 2, marginRight: 0, marginBottom: 0}}
-//                 title='VIEW NOW' />
-//             </Card.Image>
-//         </View>
-//     )
-// }
-
-// export default function BookCard() {
-//     return (
-//             <Card>
-//   <Card.Title>HELLO WORLD</Card.Title>
-//   <Card.Divider/>
-//   <Card.Image source={require('../assets/book.png')}>
-//     <Text style={{marginBottom: 10}}>
-//       The idea with React Native Elements is more about component structure than actual design.
-//     </Text>
-//     <Button
-//       buttonStyle={{borderRadius: 0, marginLeft: 0, marginRight: 0, marginBottom: 0}}
-//       title='VIEW NOW' />
-//   </Card.Image>
-// </Card>
-
-//     )
-// }
 
 import React, { Component } from 'react';
 import { 
@@ -48,8 +6,7 @@ import {
     Image,
     StyleSheet,
     TouchableOpacity 
-} from 'react-native';
-// import themes from '../styles/theme.style';
+} from 'react-native'
 export default class BookCard extends Component {
     addToCart = () => {
         // this.props.addItemsToCart(this.props.item)

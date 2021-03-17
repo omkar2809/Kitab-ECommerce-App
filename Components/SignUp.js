@@ -13,7 +13,7 @@ export default class SignUp extends React.Component {
     }
 
     handleSignUp = () => {
-        const toast = Toast.showLoading('Loading...')
+        const toast = Toast.showLoading('')
         signUp({...this.state})
         .then(res => {
             console.log(res.data)
@@ -36,7 +36,7 @@ export default class SignUp extends React.Component {
         return (
             <View style={styles.container}>
                 <Image source={require('../assets/book.png')} style={styles.logoImage} />
-                <Text style={styles.logo}>eKitab</Text>
+                <Text style={styles.logo}>Kitab</Text>
                 <View style={styles.inputView} >
                     <TextInput  
                         style={styles.inputText}

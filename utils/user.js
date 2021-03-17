@@ -15,11 +15,31 @@ export const getUser = () => {
     return SecureStore.getItemAsync('userData')
 }
 
-export const isAuthenticated= (user = {}) => {
-    console.log('in auth', user)
+export const isAuthenticatedAsync = async () => {
+    try {
+        const user = await getUser()
+        let userData = JSON.parse(user);
+        console.log(userData)
+        if(!userData) return false
+        if(userData && userData.exp * 1000 < Date.now()) {
+            deleteUser()
+            return false
+        }
+        else return true
+    }
+    catch(err) {
+        return false
+    }
+}
+
+export const isAuthenticated = (user = undefined) => {
+    console.log('in auth')
     if(user) {
+        console.log('here')
+        console.log(user)
         if(user.exp * 1000 < Date.now()) {
             deleteUser()
+            console.log('delete old user after expiry')
             return false
         }
         else return true
@@ -27,6 +47,7 @@ export const isAuthenticated= (user = {}) => {
     getUser()
     .then(user => {
         let userData = JSON.parse(user);
+        console.log(userData)
         if(userData && userData.exp * 1000 < Date.now()) {
             deleteUser()
             return false
