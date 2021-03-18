@@ -1,32 +1,61 @@
 import React, { Component } from 'react';
 import { FlatList, Text, View, Image , StyleSheet, Dimensions, TouchableOpacity} from 'react-native'
 import Toast from 'react-native-tiny-toast'
-import { getBooks } from '../utils/requests'
+import { getSellerBooks } from '../utils/requests'
+import { getUser, isAuthenticatedAsync } from '../utils/user';
 
 const { width, height } = Dimensions.get('window')
 const SCREEN_WIDTH = width < height ? width : height;
 const bookNumColumns = 2;
 const BOOK_ITEM_HEIGHT = 200;
 const BOOK_ITEM_MARGIN = 5;
-export default class Home extends Component {
+export default class SellersBooks extends Component {
     state = {
-        loading: true
+        loading: false
     }
     books = []
+
     componentDidMount() {
-        getBooks()
-        .then(res => {
-            this.books = res.data
-            this.setState({loading: false})
-        })
-        .catch(err => {
-            console.log(err)
-            this.setState({loading: false})
-            Toast.show('Something went wrong!')
-        })
+        const toast = Toast.showLoading('Loading...')
+        this._navListener = this.props.navigation.addListener('didFocus', async () => {
+            console.log('component')
+            const isAuth = await isAuthenticatedAsync()
+            console.log('isAuth',isAuth)
+            if(!isAuth) {
+                this.props.navigation.navigate('Login')
+            }
+            else {
+                let headers = {}
+                getUser()
+                .then(user => {
+                    let userData = JSON.parse(user)
+                    headers = {
+                        headers: {
+                            Authorization: userData.token
+                        }
+                    }
+                    return getSellerBooks(headers)
+                })
+                .then(res => {
+                    this.books = res.data
+                    Toast.hide(toast)
+                    this.setState({loading: false})
+                })
+                .catch(err => {
+                    console.log(err)
+                    this.setState({loading: false})
+                    Toast.hide(toast)
+                    Toast.show('Something went wrong!')
+                })
+            }
+        });
     }
 
-    renderBooks = ({item, index}) => (
+    componentWillUnmount() {
+        this._navListener.remove();
+    }
+
+    renderBooks = ({item}) => (
         <TouchableOpacity underlayColor='rgba(73,182,77,1,0.9)'>
             <View style={styles.container}>
                 <Image style={styles.photo} source={{ uri: item.imageUrl }} />
@@ -36,7 +65,7 @@ export default class Home extends Component {
         </TouchableOpacity>
     );
     render() {
-        return !this.state.loading ? (
+        return (
         <View>
             {
                 this.books.length === 0 ? (
@@ -53,9 +82,7 @@ export default class Home extends Component {
                 )
             }
             </View>
-        ): (
-            <View></View>
-        );
+        )
     }
 }
 

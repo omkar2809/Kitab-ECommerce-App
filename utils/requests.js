@@ -18,4 +18,12 @@ export const addBook = (payload, headers) => {
     return axios.post(`${baseUrl}/addBook`, payload, headers)
 }
 
+export const getBooks = () => {
+    return axios.get(`${baseUrl}/getBooks`)
+}
+
+export const getSellerBooks = (headers) => {
+    return axios.get(`${baseUrl}/getSellerBooks`, headers)
+}
+
 export default req = { login, signUp }

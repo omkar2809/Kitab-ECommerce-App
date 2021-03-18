@@ -12,6 +12,7 @@ import Home from './Components/Home'
 import Cart from './Components/Cart'
 import Orders from './Components/Orders'
 import BookForm from './Components/BookForm'
+import SellersBooks from './Components/SellersBooks'
 
 
 var userInfo = { isAuthenticated: false }
@@ -145,6 +146,27 @@ const SellBookNavigator = createStackNavigator({
     })
 })
 
+const SellerBooksNavigator = createStackNavigator({
+    Books: {
+        screen: SellersBooks,
+        params: {
+            userInfo: userInfo
+        }
+    }
+    }, {
+    defaultNavigationOptions: ({navigation}) => ({
+        headerStyle: {
+            backgroundColor: '#00695c',
+            height: 70
+        },
+        headerTintColor: '#ffeb3b',
+        headerTitleStyle: {
+            color: '#ffeb3b'
+        },
+        headerLeft: <Icon name='menu' size={38}  color="#ffeb3b" iconStyle={{marginLeft: 10}} onPress = {() => navigation.toggleDrawer()}/>
+    })
+})
+
 const CustomDrawerContentComponent = (props) => (
     <ScrollView>
         <SafeAreaView style={styles.container} forceInset={{ top: 'always', horizontal: 'never' }}>
@@ -199,6 +221,13 @@ const MainNavigator = createDrawerNavigator({
         navigationOptions: {
             title: 'Sell Book',
             drawerLabel: 'Sell Book',
+        }
+    },
+    SellersBooks: {
+        screen: SellerBooksNavigator,
+        navigationOptions: {
+            title: "Seller's Books",
+            drawerLabel: () => { if(userInfo.isAuthenticated) return "Seller's Books"; else return null },
         }
     },
     Login: {
