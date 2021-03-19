@@ -27,7 +27,7 @@ export default class Home extends Component {
     }
 
     renderBooks = ({item, index}) => (
-        <TouchableOpacity underlayColor='rgba(73,182,77,1,0.9)'>
+        <TouchableOpacity underlayColor='rgba(73,182,77,1,0.9)' onPress={() => this.props.navigation.navigate('BookDetails', {book: item, admin: false})}>
             <View style={styles.container}>
                 <Image style={styles.photo} source={{ uri: item.imageUrl }} />
                 <Text style={styles.title}>{item.title}</Text>

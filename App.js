@@ -13,7 +13,7 @@ import Cart from './Components/Cart'
 import Orders from './Components/Orders'
 import BookForm from './Components/BookForm'
 import SellersBooks from './Components/SellersBooks'
-
+import BookDetails from './Components/BookDetails'
 
 var userInfo = { isAuthenticated: false }
 
@@ -37,9 +37,17 @@ function setUserInfo() {
 }
 
 const HomeNavigator = createStackNavigator({
-    Home: {screen: Home}
+    Home: {
+            screen: Home,
+            navigationOptions: ({navigation}) => ({
+                drawerLabel: 'Home',
+                headerLeft: <Icon name='menu' size={38}  color="#ffeb3b" iconStyle={{marginLeft: 10}} onPress = {() => navigation.toggleDrawer()}/>
+        })
+    },
+    BookDetails: { screen: BookDetails }
     }, {
-    defaultNavigationOptions: ({navigation}) => ({
+    initialRouteName: 'Home',
+    defaultNavigationOptions: () => ({
         headerStyle: {
             backgroundColor: '#00695c',
             height: 70
@@ -47,8 +55,7 @@ const HomeNavigator = createStackNavigator({
         headerTintColor: '#ffeb3b',
         headerTitleStyle: {
             color: '#ffeb3b'
-        },
-        headerLeft: <Icon name='menu' size={38}  color="#ffeb3b" iconStyle={{marginLeft: 10}} onPress = {() => navigation.toggleDrawer()}/>
+        }
     })
 })
 
@@ -77,7 +84,6 @@ const LoginNavigator = createStackNavigator({
         headerTitleStyle: {
             color: "#ffeb3b"            
         },
-        // title: 'Login',
         headerTintColor: "#ffeb3b",
         headerTransparent: true,
     })
@@ -148,13 +154,16 @@ const SellBookNavigator = createStackNavigator({
 
 const SellerBooksNavigator = createStackNavigator({
     Books: {
-        screen: SellersBooks,
-        params: {
-            userInfo: userInfo
-        }
-    }
+            screen: SellersBooks,
+            navigationOptions: ({navigation}) => ({
+                drawerLabel: 'Books',
+                headerLeft: <Icon name='menu' size={38}  color="#ffeb3b" iconStyle={{marginLeft: 10}} onPress = {() => navigation.toggleDrawer()}/>
+        })
+    },
+    BookDetails: { screen: BookDetails }
     }, {
-    defaultNavigationOptions: ({navigation}) => ({
+    initialRouteName: "Books",
+    defaultNavigationOptions: () => ({
         headerStyle: {
             backgroundColor: '#00695c',
             height: 70
@@ -162,8 +171,7 @@ const SellerBooksNavigator = createStackNavigator({
         headerTintColor: '#ffeb3b',
         headerTitleStyle: {
             color: '#ffeb3b'
-        },
-        headerLeft: <Icon name='menu' size={38}  color="#ffeb3b" iconStyle={{marginLeft: 10}} onPress = {() => navigation.toggleDrawer()}/>
+        }
     })
 })
 
