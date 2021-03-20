@@ -26,4 +26,8 @@ export const getSellerBooks = (headers) => {
     return axios.get(`${baseUrl}/getSellerBooks`, headers)
 }
 
+export const getCart = (headers) => {
+    return axios.get(`${baseUrl}/getCart`, headers)
+}
+
 export default req = { login, signUp }
