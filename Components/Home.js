@@ -14,20 +14,26 @@ export default class Home extends Component {
     }
     books = []
     componentDidMount() {
-        getBooks()
-        .then(res => {
-            this.books = res.data
-            this.setState({loading: false})
-        })
-        .catch(err => {
-            console.log(err)
-            this.setState({loading: false})
-            Toast.show('Something went wrong!')
+        this._navListener = this.props.navigation.addListener('didFocus',() => {
+            getBooks()
+            .then(res => {
+                this.books = res.data
+                this.setState({loading: false})
+            })
+            .catch(err => {
+                console.log(err)
+                this.setState({loading: false})
+                Toast.show('Something went wrong!')
+            })
         })
     }
 
+    componentWillUnmount() {
+        this._navListener.remove()
+    }
+
     renderBooks = ({item, index}) => (
-        <TouchableOpacity underlayColor='rgba(73,182,77,1,0.9)' onPress={() => this.props.navigation.navigate('BookDetails', {book: item, admin: false})}>
+        <TouchableOpacity underlayColor='rgba(73,182,77,1,0.9)' onPress={() => this.props.navigation.push('BookDetails', {book: item, admin: false})}>
             <View style={styles.container}>
                 <Image style={styles.photo} source={{ uri: item.imageUrl }} />
                 <Text style={styles.title}>{item.title}</Text>

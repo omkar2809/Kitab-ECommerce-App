@@ -1,5 +1,8 @@
 import React, { Component } from 'react'
 import { View, Image, ScrollView, Text, StyleSheet, TouchableOpacity } from 'react-native'
+import Toast from 'react-native-tiny-toast'
+import { getUser, isAuthenticated, isAuthenticatedAsync } from '../utils/user'
+import { addToCart, deleteBook } from '../utils/requests'
 
 export default class BookDetails extends Component {
     state = {
@@ -7,14 +10,96 @@ export default class BookDetails extends Component {
         loading: true,
         book: {}
     }
+
     componentDidMount() {
-        console.log(this.props.navigation.state.params.book)
-        this.setState({ 
-            book: this.props.navigation.state.params.book, 
-            admin: this.props.navigation.state.params.admin,
-            loading: false
+        this._navListener = this.props.navigation.addListener('didFocus',() => {
+            console.log('component')
+            this.setState({ 
+                book: this.props.navigation.state.params.book, 
+                admin: this.props.navigation.state.params.admin,
+                loading: false
+            })
         })
     }
+
+
+    addBookToCart = (bookId) => {
+        console.log('inside add', bookId)
+        let headers = {}
+        const toast = Toast.showLoading('')
+        getUser()
+        .then(user => {
+            let userData = JSON.parse(user)
+            if(isAuthenticated(userData)) {
+                headers = {
+                    headers: {
+                        Authorization: userData.token
+                    }
+                }
+                addToCart(headers, bookId)
+                .then(res => {
+                    console.log(res.data)
+                    Toast.hide(toast)
+                    Toast.showSuccess(res.data.message)
+                    this.props.navigation.push('Cart')
+                })
+                .catch(err => {
+                    console.log(err)
+                    Toast.hide(toast)
+                    Toast.show('Something went wrong!')
+                })
+            }
+            else{
+                Toast.hide(toast)
+                this.props.navigation.navigate('Login')
+            }
+        })
+        .catch(err => {
+            console.log(err)
+            Toast.hide(toast)
+            Toast.show('Something went wrong!')
+        })
+    }
+
+    removeBook = (bookId) => {
+        console.log('remove Book')
+        console.log(bookId)
+        let headers = {}
+        const toast = Toast.showLoading('')
+        getUser()
+        .then(user => {
+            let userData = JSON.parse(user)
+            if(isAuthenticated(userData)) {
+                headers = {
+                    headers: {
+                        Authorization: userData.token
+                    }
+                }
+                deleteBook(headers, bookId)
+                .then(res => {
+                    console.log(res.data)
+                    Toast.hide(toast)
+                    Toast.showSuccess(res.data.message)
+                    this.props.navigation.popToTop("Home")
+                })
+                .catch(err => {
+                    console.log(err)
+                    Toast.hide(toast)
+                    Toast.show('Something went wrong!')
+                })
+            }
+            else{
+                Toast.hide(toast)
+                this.props.navigation.navigate('Login')
+            }
+        })
+        .catch(err => {
+            console.log(err)
+            Toast.hide(toast)
+            Toast.show('Something went wrong!')
+        })
+    }
+
     render() {
         return (
             <ScrollView>
@@ -33,7 +118,7 @@ export default class BookDetails extends Component {
                                             <Text style={styles.inStock} >#In Stock</Text>
                                             <Text style={styles.inStock}>{this.state.book.stock} left</Text>
                                         </View>
-                                    ): (
+                                    ) : (
                                         <View style={styles.stockContainer} >
                                             <Text style={styles.outStock}>#Out of Stock</Text>
                                         </View>
@@ -50,7 +135,7 @@ export default class BookDetails extends Component {
                             {
                                 !this.state.admin ? (
                                     <View style={styles.container}>
-                                        <TouchableOpacity  style={styles.loginBtn}>
+                                        <TouchableOpacity  onPress={() => this.addBookToCart(this.state.book.id)}  style={styles.loginBtn}>
                                             <Text style={styles.loginText}>Add to Cart</Text>
                                         </TouchableOpacity>
                                     </View>
@@ -59,7 +144,7 @@ export default class BookDetails extends Component {
                                         <TouchableOpacity  style={styles.adminBtn}>
                                             <Text style={styles.loginText}>Update</Text>
                                         </TouchableOpacity>
-                                        <TouchableOpacity  style={styles.adminBtn}>
+                                        <TouchableOpacity onPress={() => this.removeBook(this.state.book.id)}  style={styles.adminBtn}>
                                             <Text style={styles.loginText}>Remove</Text>
                                         </TouchableOpacity>
                                     </View>

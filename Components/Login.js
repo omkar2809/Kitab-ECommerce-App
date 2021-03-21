@@ -14,6 +14,7 @@ export default class Login extends React.Component {
     }
 
     handleLogin = () => {
+        console.log('inside handleLogin')
         const toast = Toast.showLoading('')
         login({...this.state})
         .then(res => {

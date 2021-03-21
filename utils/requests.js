@@ -30,4 +30,21 @@ export const getCart = (headers) => {
     return axios.get(`${baseUrl}/getCart`, headers)
 }
 
+export const addToCart = (headers, bookId) => {
+    return axios.post(`${baseUrl}/addToCart/${bookId}`,{}, headers)
+}
+
+export const removeFromCart = (headers, bookId) => {
+    return axios.delete(`${baseUrl}/removeFromCart/${bookId}`, headers)
+}
+
+export const clearCart = (headers) => {
+    return axios.delete(`${baseUrl}/clearCart`, headers)
+}
+
+export const deleteBook = (headers, bookId) => {
+    return axios.delete(`${baseUrl}/deleteBook/${bookId}`, headers)
+}
+
+
 export default req = { login, signUp }

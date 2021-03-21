@@ -56,7 +56,7 @@ export default class SellersBooks extends Component {
     }
 
     renderBooks = ({item}) => (
-        <TouchableOpacity underlayColor='rgba(73,182,77,1,0.9)' onPress={() => this.props.navigation.navigate('BookDetails', {book: item, admin: true})} >
+        <TouchableOpacity underlayColor='rgba(73,182,77,1,0.9)' onPress={() => this.props.navigation.push('BookDetails', {book: item, admin: true})} >
             <View style={styles.container}>
                 <Image style={styles.photo} source={{ uri: item.imageUrl }} />
                 <Text style={styles.title}>{item.title}</Text>

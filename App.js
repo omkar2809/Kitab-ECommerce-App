@@ -41,7 +41,8 @@ const HomeNavigator = createStackNavigator({
             screen: Home,
             navigationOptions: ({navigation}) => ({
                 drawerLabel: 'Home',
-                headerLeft: <Icon name='menu' size={38}  color="#ffeb3b" iconStyle={{marginLeft: 10}} onPress = {() => navigation.toggleDrawer()}/>
+                headerLeft: <Icon name='menu' size={38}  color="#ffeb3b" iconStyle={{marginLeft: 10}} onPress = {() => navigation.toggleDrawer()}/>,
+                // detachPreviousScreen: true
         })
     },
     BookDetails: { screen: BookDetails }
@@ -55,8 +56,8 @@ const HomeNavigator = createStackNavigator({
         headerTintColor: '#ffeb3b',
         headerTitleStyle: {
             color: '#ffeb3b'
-        }
-    })
+        },
+    }),
 })
 
 const LoginNavigator = createStackNavigator({
@@ -91,13 +92,16 @@ const LoginNavigator = createStackNavigator({
 
 const CartNavigator = createStackNavigator({
     Cart: {
-        screen: Cart,
-        params: {
-            userInfo: userInfo
-        }
-    }
+            screen: Cart,
+            navigationOptions: ({navigation}) => ({
+                drawerLabel: 'Cart',
+                headerLeft: <Icon name='menu' size={38}  color="#ffeb3b" iconStyle={{marginLeft: 10}} onPress = {() => navigation.toggleDrawer()}/>
+        })
+    },
+    BookDetails: { screen: BookDetails }
     }, {
-    defaultNavigationOptions: ({navigation}) => ({
+    initialRouteName: 'Cart',
+    defaultNavigationOptions: () => ({
         headerStyle: {
             backgroundColor: '#00695c',
             height: 70
@@ -105,8 +109,7 @@ const CartNavigator = createStackNavigator({
         headerTintColor: '#ffeb3b',
         headerTitleStyle: {
             color: '#ffeb3b'
-        },
-        headerLeft: <Icon name='menu' size={38}  color="#ffeb3b" iconStyle={{marginLeft: 10}} onPress = {() => navigation.toggleDrawer()}/>
+        }
     })
 })
 

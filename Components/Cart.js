@@ -1,11 +1,10 @@
-import React, { Component } from 'react';
-// import { FlatList, Text, View, Image , StyleSheet, Dimensions, TouchableOpacity} from 'react-native'
+import React, { Component } from 'react'
 import { FlatList, View, Text, Alert, StyleSheet, TouchableOpacity } from 'react-native'
 import { ListItem, Avatar } from 'react-native-elements'
 import Toast from 'react-native-tiny-toast'
 import Swipeout from 'react-native-swipeout'
 import { getUser, isAuthenticatedAsync } from '../utils/user'
-import { getCart } from '../utils/requests'
+import { getCart, removeFromCart, clearCart } from '../utils/requests'
 
 
 export default class Cart extends Component {
@@ -37,8 +36,8 @@ export default class Cart extends Component {
                 })
                 .then(res => {
                     // this.books = res.data
-                    this.setState({cart: res.data.books, totalSum: res.data.totalSum})
-                    // console.log(res.data)
+                    this.setState({cart: res.data.books.filter(Boolean), totalSum: res.data.totalSum})
+                    console.log('Books ',res.data.books.filter(Boolean))
                     Toast.hide(toast)
                     this.setState({loading: false})
                 })
@@ -58,11 +57,80 @@ export default class Cart extends Component {
 
     removeBookFromCart = (bookId) => {
         console.log(bookId)
+        let headers = {}
+        let message = ''
+        const toast = Toast.showLoading('')
+        getUser()
+        .then(user => {
+            let userData = JSON.parse(user)
+            headers = {
+                headers: {
+                    Authorization: userData.token
+                }
+            }
+            return removeFromCart(headers, bookId)
+        })
+        .then(res => {
+            // this.books = res.data
+            // this.setState({cart: res.data.books, totalSum: res.data.totalSum})
+            console.log(res.data)
+            message=  res.data.message
+            return getCart(headers)
+        })
+        .then(res => {
+            this.setState({cart: res.data.books, totalSum: res.data.totalSum})
+            // console.log(res.data)
+            Toast.hide(toast)
+            Toast.showSuccess(message)
+            this.setState({loading: false})
+        })
+        .catch(err => {
+            console.log(err)
+            this.setState({loading: false})
+            Toast.hide(toast)
+            Toast.show('Something went wrong!')
+        })
+    }
+
+    clearCartItems = () => {
+        let headers = {}
+        let message = ''
+        const toast = Toast.showLoading('')
+        getUser()
+        .then(user => {
+            let userData = JSON.parse(user)
+            headers = {
+                headers: {
+                    Authorization: userData.token
+                }
+            }
+            return clearCart(headers)
+        })
+        .then(res => {
+            // this.books = res.data
+            // this.setState({cart: res.data.books, totalSum: res.data.totalSum})
+            console.log(res.data)
+            message=  res.data.message
+            return getCart(headers)
+        })
+        .then(res => {
+            this.setState({cart: res.data.books, totalSum: res.data.totalSum})
+            // console.log(res.data)
+            Toast.hide(toast)
+            Toast.showSuccess(message)
+            this.setState({loading: false})
+        })
+        .catch(err => {
+            console.log(err)
+            this.setState({loading: false})
+            Toast.hide(toast)
+            Toast.show('Something went wrong!')
+        })
     }
 
     render() {
         const renderCartItems = ({item, index}) => {
-            // console.log(item)
+            console.log('render cart ',item)
             const rightButton = [{
                 text: 'Delete', 
                 type: 'delete',
@@ -129,7 +197,7 @@ export default class Cart extends Component {
                                 <FlatList 
                                     data={this.state.cart}
                                     renderItem={renderCartItems}
-                                    keyExtractor={item => item.id}
+                                    keyExtractor={item => item}
                                     />
                             </View>
                         )
@@ -144,7 +212,7 @@ export default class Cart extends Component {
                                     <TouchableOpacity  style={styles.adminBtn}>
                                         <Text style={styles.loginText}>Order</Text>
                                     </TouchableOpacity>
-                                    <TouchableOpacity  style={styles.adminBtn}>
+                                    <TouchableOpacity  onPress={() => this.clearCartItems()} style={styles.adminBtn}>
                                         <Text style={styles.loginText}>Clear Cart</Text>
                                     </TouchableOpacity>
                                 </View>
@@ -213,148 +281,3 @@ const styles = StyleSheet.create({
         fontWeight: 'bold'
     }
 })
-
-// const { width, height } = Dimensions.get('window')
-// const SCREEN_WIDTH = width < height ? width : height;
-// const bookNumColumns = 2;
-// const BOOK_ITEM_HEIGHT = 200;
-// const BOOK_ITEM_MARGIN = 5;
-
-// export default class Cart extends Component {
-//     state = {
-//         loading: true,
-//         cart: [],
-//         totalSum : 0
-//     }
-//     componentDidMount() {
-//         this._navListener = this.props.navigation.addListener('didFocus', async () => {
-//             console.log('component')
-//             const isAuth = await isAuthenticatedAsync()
-//             console.log('isAuth',isAuth)
-//             if(!isAuth) {
-//                 this.props.navigation.navigate('Login')
-//             }
-//             else {
-//                 let headers = {}
-//                 const toast = Toast.showLoading('Loading...')
-//                 getUser()
-//                 .then(user => {
-//                     let userData = JSON.parse(user)
-//                     headers = {
-//                         headers: {
-//                             Authorization: userData.token
-//                         }
-//                     }
-//                     return getCart(headers)
-//                 })
-//                 .then(res => {
-//                     // this.books = res.data
-//                     this.setState({cart: res.data.books})
-//                     // console.log(res.data)
-//                     Toast.hide(toast)
-//                     this.setState({loading: false})
-//                 })
-//                 .catch(err => {
-//                     console.log(err)
-//                     this.setState({loading: false})
-//                     Toast.hide(toast)
-//                     Toast.show('Something went wrong!')
-//                 })
-//             }
-//         });
-//     }
-
-//     componentWillUnmount() {
-//         this._navListener.remove();
-//     }
-
-//     renderBooks = ({item, index}) => (
-//         <TouchableOpacity underlayColor='rgba(73,182,77,1,0.9)' onPress={() => this.props.navigation.navigate('BookDetails', {book: item.book, admin: false})}>
-//             <View style={styles.container}>
-//                 <Image style={styles.photo} source={{ uri: item.book.imageUrl }} />
-//                 <Text style={styles.title}>{item.book.title}</Text>
-//                 <Text style={styles.price}>$ {item.book.price}</Text>
-//                 <Text style={styles.price}>Quantity: {item.quantity}</Text>
-//             </View>
-//         </TouchableOpacity>
-//     );
-
-//     render() {
-//         return !this.state.loading ? (
-//             <View>
-//                 {
-//                     this.state.cart.length === 0 ? (
-//                         <Text>Cart is Empty ..</Text>
-//                     ): (
-//                         <View>
-//                             <FlatList
-//                                 vertical
-//                                 showsVerticalScrollIndicator={false}
-//                                 numColumns={2}
-//                                 data={this.state.cart}
-//                                 renderItem={this.renderBooks}
-//                                 keyExtractor={book => book.id}
-//                             />
-//                             <View style={styles.footer}>
-//                                 <Text>Home</Text>
-//                             </View>
-//                         </View>
-//                     )
-//                 }
-//             </View>
-//         ): (
-//             <View>
-//             </View>
-//         );
-//     }
-// }
-
-
-// const styles = StyleSheet.create({
-//     container: {
-//         flex: 1,
-//         justifyContent: 'center',
-//         alignItems: 'center',
-//         marginLeft: BOOK_ITEM_MARGIN,
-//         marginTop: 20,
-//         width: (SCREEN_WIDTH - (bookNumColumns + 1) * BOOK_ITEM_MARGIN) / bookNumColumns,
-//         // height: BOOK_ITEM_HEIGHT + 75,
-//         borderColor: '#cccccc',
-//         borderWidth: 0.5,
-//         borderRadius: 15
-//     },
-//     photo: {
-//         width: (SCREEN_WIDTH - (bookNumColumns + 1) * BOOK_ITEM_MARGIN) / bookNumColumns,
-//         height: BOOK_ITEM_HEIGHT,
-//         borderRadius: 15,
-//         borderBottomLeftRadius: 0,
-//         borderBottomRightRadius: 0
-//     },
-//     title: {
-//         flex: 1,
-//         fontSize: 17,
-//         fontWeight: 'bold',
-//         textAlign: 'center',
-//         color: '#444444',
-//         marginTop: 3,
-//         marginRight: 5,
-//         marginLeft: 5,
-//     },
-//     price: {
-//         marginTop: 5,
-//         // marginBottom: 5
-//     },
-//     footer: {
-//         // flex: 1,
-//         // flexDirection: 'row',
-//         // justifyContent: 'flex-end',
-//         // alignItems:'baseline',
-//         borderColor: '#cccccc',
-//         borderWidth:2,
-//         position: 'absolute',
-//         bottom: 0
-//         // height: 40,
-//         // left: 0,
-//         // top: height - 40
-//     }
-// });
