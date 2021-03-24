@@ -23,7 +23,7 @@ export default class Cart extends Component {
             }
             else {
                 let headers = {}
-                const toast = Toast.showLoading('Loading...')
+                const toast = Toast.showLoading('')  // here
                 getUser()
                 .then(user => {
                     let userData = JSON.parse(user)
@@ -36,6 +36,18 @@ export default class Cart extends Component {
                 })
                 .then(res => {
                     // this.books = res.data
+                    console.log(res.data)
+                    console.log(res.data.books.length)
+                    // if(res.data.books.length > 0 && res.data.books.filter(Boolean).length === 0) {
+                    //     Toast.hide(toast)
+                    //     this.clearCartItems()
+                    // }
+                    // else {
+                    //     this.setState({cart: res.data.books.filter(Boolean), totalSum: res.data.totalSum})
+                    //     console.log('Books ',res.data.books.filter(Boolean))
+                    //     Toast.hide(toast)
+                    //     this.setState({loading: false})
+                    // }
                     this.setState({cart: res.data.books.filter(Boolean), totalSum: res.data.totalSum})
                     console.log('Books ',res.data.books.filter(Boolean))
                     Toast.hide(toast)
@@ -207,7 +219,7 @@ export default class Cart extends Component {
                             <View style={styles.adminBtnContainer}>
                                 <View style={styles.button}>
                                     <View style={styles.totalTextView}>
-                                        <Text style={styles.totalSumText}>Total: $ {this.state.totalSum}</Text>
+                                        <Text style={styles.totalSumText}>Total: ₹ {this.state.totalSum}</Text>
                                     </View>
                                     <TouchableOpacity  style={styles.adminBtn}>
                                         <Text style={styles.loginText}>Order</Text>

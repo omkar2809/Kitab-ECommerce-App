@@ -11,13 +11,13 @@ const BOOK_ITEM_HEIGHT = 200;
 const BOOK_ITEM_MARGIN = 5;
 export default class SellersBooks extends Component {
     state = {
-        loading: false
+        loading: true
     }
     books = []
 
     componentDidMount() {
-        const toast = Toast.showLoading('Loading...')
         this._navListener = this.props.navigation.addListener('didFocus', async () => {
+            const toast = Toast.showLoading('Loading...')
             console.log('component')
             const isAuth = await isAuthenticatedAsync()
             console.log('isAuth',isAuth)
@@ -65,7 +65,7 @@ export default class SellersBooks extends Component {
         </TouchableOpacity>
     );
     render() {
-        return (
+        return !this.state.loading ? (
         <View>
             {
                 this.books.length === 0 ? (
@@ -82,7 +82,7 @@ export default class SellersBooks extends Component {
                 )
             }
             </View>
-        )
+        ) : (<View></View>)
     }
 }
 

@@ -46,5 +46,9 @@ export const deleteBook = (headers, bookId) => {
     return axios.delete(`${baseUrl}/deleteBook/${bookId}`, headers)
 }
 
+export const updateBook = (payload, bookId, headers) => {
+    return axios.put(`${baseUrl}/updateBook/${bookId}`, payload, headers)
+}
+
 
 export default req = { login, signUp }

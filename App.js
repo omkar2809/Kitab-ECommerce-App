@@ -14,6 +14,7 @@ import Orders from './Components/Orders'
 import BookForm from './Components/BookForm'
 import SellersBooks from './Components/SellersBooks'
 import BookDetails from './Components/BookDetails'
+import updateBookForm from './Components/updateBookForm'
 
 var userInfo = { isAuthenticated: false }
 
@@ -135,7 +136,7 @@ const OrdersNavigator = createStackNavigator({
 })
 
 const SellBookNavigator = createStackNavigator({
-    SellBook: {
+    "Sell Book": {
         screen: BookForm,
         params: {
             userInfo: userInfo
@@ -156,16 +157,17 @@ const SellBookNavigator = createStackNavigator({
 })
 
 const SellerBooksNavigator = createStackNavigator({
-    Books: {
+    "Seller's Books": {
             screen: SellersBooks,
             navigationOptions: ({navigation}) => ({
                 drawerLabel: 'Books',
                 headerLeft: <Icon name='menu' size={38}  color="#ffeb3b" iconStyle={{marginLeft: 10}} onPress = {() => navigation.toggleDrawer()}/>
         })
     },
-    BookDetails: { screen: BookDetails }
+    BookDetails: { screen: BookDetails },
+    UpdateDetails: { screen: updateBookForm }
     }, {
-    initialRouteName: "Books",
+    initialRouteName: "Seller's Books",
     defaultNavigationOptions: () => ({
         headerStyle: {
             backgroundColor: '#00695c',
@@ -251,7 +253,18 @@ const MainNavigator = createDrawerNavigator({
 }, {
     initialRouteName: 'Home',
     drawerBackgroundColor: '#00695c',
-    contentComponent: CustomDrawerContentComponent
+    contentComponent: CustomDrawerContentComponent,
+    contentOptions: {
+        activeTintColor: '#ffeb3b',
+        // activeBackgroundColor: 'transparent',
+        inactiveTintColor: 'black',
+        inactiveBackgroundColor: 'transparent',
+    //   labelStyle: {
+    //     fontSize: 15,
+    //     marginLeft: 10,
+    //   },
+    },
+    resetOnBlur: true
 });
 const AppContainer = createAppContainer(MainNavigator);
 
@@ -285,7 +298,7 @@ const styles = StyleSheet.create({
     },
     drawerHeaderText: {
         color:'#ffeb3b',
-        fontSize: 24,
+        fontSize: 35,
         fontWeight: 'bold'
     },
     drawerImage: {

@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { View, Image, ScrollView, Text, StyleSheet, TouchableOpacity } from 'react-native'
 import Toast from 'react-native-tiny-toast'
-import { getUser, isAuthenticated, isAuthenticatedAsync } from '../utils/user'
+import { getUser, isAuthenticated } from '../utils/user'
 import { addToCart, deleteBook } from '../utils/requests'
 
 export default class BookDetails extends Component {
@@ -80,7 +80,7 @@ export default class BookDetails extends Component {
                     console.log(res.data)
                     Toast.hide(toast)
                     Toast.showSuccess(res.data.message)
-                    this.props.navigation.popToTop("Home")
+                    this.props.navigation.navigate("Home")
                 })
                 .catch(err => {
                     console.log(err)
@@ -109,7 +109,7 @@ export default class BookDetails extends Component {
                             <View style={styles.container}>
                                 <Image style={styles.photo} source={{ uri: this.state.book.imageUrl }} />
                                 <Text style={styles.title}>{this.state.book.title}</Text>
-                                <Text style={styles.price}>$ {this.state.book.price}</Text>
+                                <Text style={styles.price}>₹ {this.state.book.price}</Text>
                             </View>
                             <View style={styles.stockContainer}>
                                 {
@@ -141,7 +141,7 @@ export default class BookDetails extends Component {
                                     </View>
                                 ) : (
                                     <View style={styles.adminBtnContainer}>
-                                        <TouchableOpacity  style={styles.adminBtn}>
+                                        <TouchableOpacity onPress={() => this.props.navigation.push('UpdateDetails' , { book: this.state.book })}  style={styles.adminBtn}>
                                             <Text style={styles.loginText}>Update</Text>
                                         </TouchableOpacity>
                                         <TouchableOpacity onPress={() => this.removeBook(this.state.book.id)}  style={styles.adminBtn}>
@@ -180,7 +180,7 @@ const styles = StyleSheet.create({
         marginLeft:20
     },
     photo: {
-        width: 275,
+        width: 375,
         height:400,
         borderRadius: 15
     },

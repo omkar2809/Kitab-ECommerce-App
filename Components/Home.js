@@ -15,6 +15,7 @@ export default class Home extends Component {
     books = []
     componentDidMount() {
         this._navListener = this.props.navigation.addListener('didFocus',() => {
+            this.setState({loading: true})
             getBooks()
             .then(res => {
                 this.books = res.data
