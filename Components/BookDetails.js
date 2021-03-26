@@ -105,10 +105,10 @@ export default class BookDetails extends Component {
             <ScrollView>
                 {
                     !this.state.loading ? (
-                        <View>
+                        <View style = {styles.viewStyle}>
                             <View style={styles.container}>
                                 <Image style={styles.photo} source={{ uri: this.state.book.imageUrl }} />
-                                <Text style={styles.title}>{this.state.book.title}</Text>
+                                <Text style={styles.title} numberOfLines={1}>{this.state.book.title}</Text>
                                 <Text style={styles.price}>₹ {this.state.book.price}</Text>
                             </View>
                             <View style={styles.stockContainer}>
@@ -159,30 +159,34 @@ export default class BookDetails extends Component {
 }
 
 const styles = StyleSheet.create({
+    viewStyle:{
+        backgroundColor:'#fff'
+    },
     container: {
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
-        marginTop: 20,
+        backgroundColor:'#fff'        
     },
     stockContainer: {
         flex: 1,
         justifyContent: 'flex-start',
         alignItems: 'flex-start',
         marginTop: 2,
-        marginLeft:20
+        marginHorizontal:10,
+        backgroundColor:'#fff'
     },
     detailsContainer: {
         flex: 1,
         justifyContent: 'flex-start',
         alignItems: 'flex-start',
         marginTop: 2,
-        marginLeft:20
+        marginHorizontal:10,
+        backgroundColor:'#fff'
     },
     photo: {
         width: 375,
         height:400,
-        borderRadius: 15
     },
     title: {
         flex: 1,
@@ -214,17 +218,16 @@ const styles = StyleSheet.create({
         fontSize: 17
     },
     loginBtn:{
-        width:"80%",
-        backgroundColor:"#00695c",
-        borderRadius:25,
-        height:50,
+        width:"95%",
+        backgroundColor:"#613dc1",
+        borderRadius:9,
+        height:40,
         alignItems:"center",
         justifyContent:"center",
-        marginTop:40,
-        marginBottom:10
+        marginVertical:20
     },
     loginText:{
-        color:"#ffeb3b"
+        color:"#fff"
     },
     adminBtnContainer: {
         flex: 1,

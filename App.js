@@ -315,7 +315,7 @@ const styles = StyleSheet.create({
         justifyContent:"center",
         bottom:0,
         marginBottom:10,
-        marginHorizontal:20
+        marginHorizontal:20,
     },
     loginText:{
         color:"#fff"

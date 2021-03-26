@@ -37,26 +37,28 @@ export default class Home extends Component {
         <TouchableOpacity underlayColor='rgba(73,182,77,1,0.9)' onPress={() => this.props.navigation.push('BookDetails', {book: item, admin: false})}>
             <View style={styles.container}>
                 <Image style={styles.photo} source={{ uri: item.imageUrl }} />
-                <Text style={styles.title}>{item.title}</Text>
-                <Text style={styles.price}>$ {item.price}</Text>
+                <Text style={styles.title} numberOfLines={1}>{item.title}</Text>
+                <Text style={styles.price}>₹ {item.price}</Text>
             </View>
         </TouchableOpacity>
     );
     render() {
         return !this.state.loading ? (
-        <View>
+        <View style={styles.viewStyle}>
             {
                 this.books.length === 0 ? (
                     <Text>Books are not available ..</Text>
                 ): (
-                <FlatList
-                    vertical
-                    showsVerticalScrollIndicator={false}
-                    numColumns={2}
-                    data={this.books}
-                    renderItem={this.renderBooks}
-                    keyExtractor={book => book.id}
-                />
+                <View style={styles.flatListStyle}>
+                    <FlatList
+                        vertical
+                        showsVerticalScrollIndicator={false}
+                        numColumns={2}
+                        data={this.books}
+                        renderItem={this.renderBooks}
+                        keyExtractor={book => book.id}
+                    />
+                </View>
                 )
             }
             </View>
@@ -67,34 +69,40 @@ export default class Home extends Component {
 }
 
 const styles = StyleSheet.create({
+    viewStyle:{
+        backgroundColor:'#fff',
+        flex:1
+    },
     container: {
-        flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
         marginLeft: BOOK_ITEM_MARGIN,
         marginTop: 20,
-        width: (SCREEN_WIDTH - (bookNumColumns + 1) * BOOK_ITEM_MARGIN) / bookNumColumns,
-        height: BOOK_ITEM_HEIGHT + 75,
+        width: ((SCREEN_WIDTH - (bookNumColumns + 1) * BOOK_ITEM_MARGIN) / bookNumColumns)-10,
+        height: BOOK_ITEM_HEIGHT + 50,
         borderColor: '#cccccc',
-        borderWidth: 0.5,
-        borderRadius: 9
+        borderWidth: 1,
+        borderRadius: 9,
+    },
+    flatListStyle:{
+        marginHorizontal:10,
+        marginTop:10
     },
     photo: {
-        width: (SCREEN_WIDTH - (bookNumColumns + 1) * BOOK_ITEM_MARGIN) / bookNumColumns,
+        width: ((SCREEN_WIDTH - (bookNumColumns + 1) * BOOK_ITEM_MARGIN) / bookNumColumns)-10,
         height: BOOK_ITEM_HEIGHT,
         borderRadius: 9,
+        top:-15,
         borderBottomLeftRadius: 0,
         borderBottomRightRadius: 0
     },
     title: {
-        flex: 1,
         fontSize: 17,
         fontWeight: 'bold',
         textAlign: 'center',
         color: '#444444',
         marginTop: 3,
-        marginRight: 5,
-        marginLeft: 5,
+        marginHorizontal:5
     },
     price: {
         marginTop: 5,
