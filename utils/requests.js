@@ -50,5 +50,9 @@ export const updateBook = (payload, bookId, headers) => {
     return axios.put(`${baseUrl}/updateBook/${bookId}`, payload, headers)
 }
 
+export const postOrder = (payload, headers) => {
+    return axios.post(`${baseUrl}/postOrder`, payload, headers)
+}
+
 
 export default req = { login, signUp }

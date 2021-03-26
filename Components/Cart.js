@@ -1,18 +1,24 @@
 import React, { Component } from 'react'
-import { FlatList, View, Text, Alert, StyleSheet, TouchableOpacity } from 'react-native'
+import { FlatList, View, Text, Alert, StyleSheet, TouchableOpacity, Modal } from 'react-native'
 import { ListItem, Avatar } from 'react-native-elements'
 import Toast from 'react-native-tiny-toast'
 import Swipeout from 'react-native-swipeout'
 import { getUser, isAuthenticatedAsync } from '../utils/user'
-import { getCart, removeFromCart, clearCart } from '../utils/requests'
-
+import { getCart, removeFromCart, clearCart, postOrder } from '../utils/requests'
+import Payment from './Payment'
 
 export default class Cart extends Component {
     state = {
         loading: true,
         cart: [],
-        totalSum : 0
+        totalSum : 0,
+        payment: false,
+        response: {},
+        paymentStatus: '',
+        email: '',
+        showModal: false
     }
+
     componentDidMount() {
         this._navListener = this.props.navigation.addListener('didFocus', async () => {
             console.log('component')
@@ -23,10 +29,11 @@ export default class Cart extends Component {
             }
             else {
                 let headers = {}
-                const toast = Toast.showLoading('')  // here
+                const toast = Toast.showLoading('')
                 getUser()
                 .then(user => {
                     let userData = JSON.parse(user)
+                    this.setState({email: userData.email})
                     headers = {
                         headers: {
                             Authorization: userData.token
@@ -140,6 +147,49 @@ export default class Cart extends Component {
         })
     }
 
+    toggleModal = () => {
+        this.setState({showModal: !this.state.showModal})
+    }
+
+    onCheckStatus = async (paymentResponse) => {
+        let headers = {}
+        this.toggleModal()
+        const toast = Toast.showLoading('')
+        getUser()
+            .then(user => {
+                let userData = JSON.parse(user)
+                headers = {
+                    headers: {
+                        Authorization: userData.token
+                    }
+                }
+                this.setState({paymentStatus: 'Please wait while confirming your payment!' })
+                this.setState({ response: paymentResponse})
+                let jsonResponse = JSON.parse(paymentResponse)
+                return postOrder({
+                    email: this.state.email,
+                    authToken: jsonResponse
+                }, headers)
+            })
+            .then(stripeResponse => {
+                Toast.hide(toast)    
+                console.log(stripeResponse.data)
+                const { paid } = stripeResponse.data.response;
+                if(paid === true){
+                    this.setState({paymentStatus: 'Payment Success'})
+                    Toast.showSuccess('Book Ordered Successfully')
+                }else{
+                    this.setState({ paymentStatus: 'Payment failed due to some issue' })
+                    Toast.show('Payment Failed')
+                }
+            })
+            .catch(err => {
+                Toast.hide(toast)
+                console.log(err)
+                Toast.show('Payment Failed')
+            })
+    }
+
     render() {
         const renderCartItems = ({item, index}) => {
             console.log('render cart ',item)
@@ -201,8 +251,8 @@ export default class Cart extends Component {
                 <View style={styles.container}>
                     {
                         this.state.cart.length == 0 ? (
-                            <View>
-                                <Text>Cart is Empty!!</Text>
+                            <View style={styles.nullContainer}>
+                                <Text style={styles.nullText}>Cart is Empty!!</Text>
                             </View>
                         ) : (
                             <View>
@@ -221,15 +271,32 @@ export default class Cart extends Component {
                                     <View style={styles.totalTextView}>
                                         <Text style={styles.totalSumText}>Total: ₹ {this.state.totalSum}</Text>
                                     </View>
-                                    <TouchableOpacity  style={styles.adminBtn}>
+                                    <TouchableOpacity onPress={() => this.toggleModal()} style={styles.adminBtn}>
                                         <Text style={styles.loginText}>Order</Text>
                                     </TouchableOpacity>
                                     <TouchableOpacity  onPress={() => this.clearCartItems()} style={styles.adminBtn}>
                                         <Text style={styles.loginText}>Clear Cart</Text>
                                     </TouchableOpacity>
                                 </View>
+                                <Modal
+                                    animationType={'slide'}
+                                    transparent={false}
+                                    visible={this.state.showModal}
+                                    onDismiss={() => {this.toggleModal()}}
+                                    onRequestClose={() => { this.toggleModal() }}   
+                                >
+                                    <Payment onCheckStatus={this.onCheckStatus} amount={this.state.totalSum} />
+                                    <View style={styles.modalContainer}>
+                                        <TouchableOpacity onPress={() => this.toggleModal()}>
+                                            <Text style={styles.modalText}>Cancel</Text>
+                                        </TouchableOpacity>
+                                    </View>
+                                </Modal>
                             </View>
                         ) : null
+                    }
+                    {
+                        this.state.payment ? (<Payment onCheckStatus={this.onCheckStatus} amount={this.state.totalSum} />): null
                     }
                 </View>
             ) : (<View></View>)
@@ -291,5 +358,24 @@ const styles = StyleSheet.create({
     totalSumText: {
         fontSize: 20,
         fontWeight: 'bold'
+    },
+    modalContainer: {
+        // flex: 1,
+        alignItems: 'center',
+    },
+    modalText: {
+        color: '#00695c',
+        fontSize: 20,
+        marginBottom: 40
+    },
+    nullContainer: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center'
+    },
+    nullText: {
+        fontWeight: 'bold',
+        color: '#00695c',
+        fontSize: 20
     }
 })

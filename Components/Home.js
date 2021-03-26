@@ -15,7 +15,8 @@ export default class Home extends Component {
     books = []
     componentDidMount() {
         this._navListener = this.props.navigation.addListener('didFocus',() => {
-            this.setState({loading: true})
+            // this.setState({loading: true})
+            console.log('inside home component')
             getBooks()
             .then(res => {
                 this.books = res.data
@@ -46,8 +47,10 @@ export default class Home extends Component {
         return !this.state.loading ? (
         <View>
             {
-                this.books.length === 0 ? (
-                    <Text>Books are not available ..</Text>
+                    this.books.length === 0 ? (
+                        <View styles={styles.nullContainer}>
+                            <Text styles={styles.nullText}>Books are not available ..</Text>
+                        </View>
                 ): (
                 <FlatList
                     vertical
@@ -99,5 +102,15 @@ const styles = StyleSheet.create({
     price: {
         marginTop: 5,
         marginBottom: 5
+    },
+    nullContainer: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center'
+    },
+    nullText: {
+        fontWeight: 'bold',
+        color: '#00695c',
+        fontSize: 20
     }
 });

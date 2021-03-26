@@ -69,7 +69,9 @@ export default class SellersBooks extends Component {
         <View>
             {
                 this.books.length === 0 ? (
-                    <Text>Books are not available ..</Text>
+                    <View styles={styles.nullContainer}>
+                        <Text styles={styles.nullText}>Books are not available ..</Text>
+                    </View>
                 ): (
                 <FlatList
                     vertical
@@ -119,5 +121,15 @@ const styles = StyleSheet.create({
     price: {
         marginTop: 5,
         marginBottom: 5
+    },
+    nullContainer: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center'
+    },
+    nullText: {
+        fontWeight: 'bold',
+        color: '#00695c',
+        fontSize: 20
     }
 });
