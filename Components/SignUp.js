@@ -94,7 +94,7 @@ const styles = StyleSheet.create({
     },
     inputText:{
         marginHorizontal:15,
-        backgroundColor:'#dedede',
+        backgroundColor:'#dee2e6',
         marginVertical:7,
         height:40,
         color:"black",

@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { FlatList, View, Text, Alert, StyleSheet, TouchableOpacity } from 'react-native'
+import { FlatList, View, Text, Alert, StyleSheet, TouchableOpacity, Image } from 'react-native'
 import { ListItem, Avatar } from 'react-native-elements'
 import Toast from 'react-native-tiny-toast'
 import Swipeout from 'react-native-swipeout'
@@ -201,8 +201,9 @@ export default class Cart extends Component {
                 <View style={styles.container}>
                     {
                         this.state.cart.length == 0 ? (
-                            <View>
-                                <Text>Cart is Empty!!</Text>
+                            <View style={styles.viewStyle}>
+                                <Image source={require('../assets/empty_cart.png')} style={styles.cartImageStyle}/>
+                                <Text style={styles.cartTextStyle}>Cart is Empty!</Text>
                             </View>
                         ) : (
                             <View>
@@ -242,6 +243,19 @@ const styles = StyleSheet.create({
         flex: 1,
         backgroundColor:'#fff'
         // alignItems: 'center'
+    },
+    viewStyle:{
+        flex:1,
+        justifyContent:'center',
+        alignItems:'center'
+    },
+    cartImageStyle:{
+        height:150,
+        width:150
+    },
+    cartTextStyle:{
+        alignSelf:'center',
+        fontSize:24
     },
     bottom: {
         flex: 1,

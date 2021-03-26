@@ -87,11 +87,11 @@ export default class BookForm extends Component {
 
     render() {
         return (
-            <View>
+            <View style={{backgroundColor:'#fff'}}>
                 <ScrollView>
                     <View style={styles.container}>
                         <Text style={styles.logo}>
-                            Add Book Details ..
+                            Add Book Details
                         </Text>
                         <Input
                             placeholder="Title"
@@ -102,7 +102,6 @@ export default class BookForm extends Component {
                             />
                         <Input
                             placeholder="Description"
-                            numberOfLines={3}
                             onChangeText={(description) => this.setState({description: description})}
                             inputContainerStyle={styles.formInput}
                             label={'Description'}
@@ -163,30 +162,26 @@ const styles = StyleSheet.create({
     container: {
         alignItems: 'center',
         justifyContent: 'center',
-        margin: 20,
-        flex: 1
+        // margin: 20,
+        flex: 1,
+        backgroundColor:'#fff'
     },
     formInput: {
-        borderColor: '#00695c',
-        marginBottom: 5,
-        borderWidth: 4,
-        borderBottomWidth: 4
+        backgroundColor:'#dee2e6',
+        borderRadius:5,
+        paddingHorizontal:10
     },
     formButton: {
         margin: 60
     },
     buttonStyle: {
-        backgroundColor: '#ffeb3b',
-        borderWidth: 6,
-        color: '#FFFFFF',
+        backgroundColor: '#c1d3fe',
         borderColor: '#ffeb3b',
         height: 40,
         alignItems: 'center',
         justifyContent: 'center',
-        borderRadius: 30,
-        marginLeft: 35,
-        marginRight: 35,
-        marginTop: 15,
+        borderRadius: 9,
+        width:'95%'
     },
     textStyle: {
         backgroundColor: '#fff',
@@ -202,14 +197,13 @@ const styles = StyleSheet.create({
         fontSize: 16,
     },
     loginBtn:{
-        width:"80%",
-        backgroundColor:"#00695c",
-        borderRadius:25,
+        width:"95%",
+        backgroundColor:"#613dc1",
+        borderRadius:9,
         height:50,
         alignItems:"center",
         justifyContent:"center",
-        marginTop:40,
-        marginBottom:10
+        marginVertical:15
     },
     loginText:{
         color:"#ffeb3b"
@@ -217,12 +211,12 @@ const styles = StyleSheet.create({
     logo:{
         fontWeight:"bold",
         fontSize:30,
-        color:"#00695c",
+        color:"#4a4e69",
         marginBottom:40
     },
     labelStyle: {
         fontWeight: 'bold',
-        color: '#00695c'
+        color: '#4a4e69',
     },
     photo: {
         width: 375,
