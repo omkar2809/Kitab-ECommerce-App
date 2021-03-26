@@ -77,12 +77,12 @@ const styles = StyleSheet.create({
         height: BOOK_ITEM_HEIGHT + 75,
         borderColor: '#cccccc',
         borderWidth: 0.5,
-        borderRadius: 15
+        borderRadius: 9
     },
     photo: {
         width: (SCREEN_WIDTH - (bookNumColumns + 1) * BOOK_ITEM_MARGIN) / bookNumColumns,
         height: BOOK_ITEM_HEIGHT,
-        borderRadius: 15,
+        borderRadius: 9,
         borderBottomLeftRadius: 0,
         borderBottomRightRadius: 0
     },

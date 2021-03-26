@@ -66,10 +66,13 @@ export default class SellersBooks extends Component {
     );
     render() {
         return !this.state.loading ? (
-        <View>
+        <View style={styles.viewStyle}>
             {
                 this.books.length === 0 ? (
-                    <Text>Books are not available ..</Text>
+                    <View style={styles.viewStyle}>
+                        <Image source={require('../assets/no_book.png')} style={styles.noBookImageStyle}/>
+                        <Text style={styles.noBookTextStyle}>Books are not available</Text>
+                    </View>
                 ): (
                 <FlatList
                     vertical
@@ -97,7 +100,8 @@ const styles = StyleSheet.create({
         height: BOOK_ITEM_HEIGHT + 75,
         borderColor: '#cccccc',
         borderWidth: 0.5,
-        borderRadius: 15
+        borderRadius: 15,
+        backgroundColor:'#000'
     },
     photo: {
         width: (SCREEN_WIDTH - (bookNumColumns + 1) * BOOK_ITEM_MARGIN) / bookNumColumns,
@@ -119,5 +123,22 @@ const styles = StyleSheet.create({
     price: {
         marginTop: 5,
         marginBottom: 5
+    },
+    viewStyle:{
+        flex:1,
+        alignContent:'center',
+        justifyContent:'center',
+        backgroundColor:'#fff'
+    },
+    noBookImageStyle:{
+        alignSelf:'center',
+        height:150,
+        width:200
+    },
+    noBookTextStyle:{
+        color:'#000',
+        fontSize:22,
+        marginTop:10,
+        alignSelf:'center'
     }
 });

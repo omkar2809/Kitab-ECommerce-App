@@ -80,13 +80,13 @@ const LoginNavigator = createStackNavigator({
     initialRouteName: 'Login',
     defaultNavigationOptions: () => ({
         headerStyle: {
-            backgroundColor: "#00695c",
-            height: 70
+            backgroundColor: "#e9e0ff",
+            height: 60
         },
         headerTitleStyle: {
-            color: "#ffeb3b"            
+            color: "#4a4e69"            
         },
-        headerTintColor: "#ffeb3b",
+        headerTintColor: "#4a4e69",
         headerTransparent: true,
     })
 });
@@ -289,7 +289,7 @@ const styles = StyleSheet.create({
         flex: 1
     },
     drawerHeader: {
-        backgroundColor:'#a596d3',
+        backgroundColor:'#e9e0ff',
         height: 160,
         alignItems: 'center',
         justifyContent: 'center',
