@@ -240,6 +240,7 @@ export default class Cart extends Component {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
+        backgroundColor:'#fff'
         // alignItems: 'center'
     },
     bottom: {
@@ -257,7 +258,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center'
     },
     loginText:{
-        color:"#ffeb3b"
+        color:"#fff"
     },
     adminBtnContainer: {
         flex: 1,
@@ -269,9 +270,9 @@ const styles = StyleSheet.create({
         // position: 'absolute',
         bottom:0,
         width:"35%",
-        backgroundColor:"#00695c",
-        borderRadius:20,
-        height:50,
+        backgroundColor:"#613dc1",
+        borderRadius:9,
+        height:40,
         alignItems:"center",
         justifyContent:"center",
         marginTop:40,
