@@ -54,5 +54,28 @@ export const postOrder = (payload, headers) => {
     return axios.post(`${baseUrl}/postOrder`, payload, headers)
 }
 
+export const sendOTP = (payload) => {
+    return axios.post(`${baseUrl}/sendOTP`, payload)
+}
+
+export const verifyOTP = (payload) => {
+    return axios.post(`${baseUrl}/verifyOTP`, payload)
+}
+
+export const resetPassword = (payload) => {
+    return axios.post(`${baseUrl}/resetPassword`, payload)
+}
+
+export const getInvoice = (orderId, headers) => {
+    return axios.get(`${baseUrl}/getInvoice/${orderId}`, headers)
+}
+
+export const getProfile = (headers) => {
+    return axios.get(`${baseUrl}/profile`, headers)
+}
+
+export const updateProfile = (payload, headers) => {
+    return axios.put(`${baseUrl}/updateProfile`, payload, headers)
+}
 
 export default req = { login, signUp }

@@ -15,6 +15,8 @@ import BookForm from './Components/BookForm'
 import SellersBooks from './Components/SellersBooks'
 import BookDetails from './Components/BookDetails'
 import updateBookForm from './Components/updateBookForm'
+import Profile from './Components/Profile'
+import ForgetPassword from './Components/ForgetPassword'
 
 var userInfo = { isAuthenticated: false }
 
@@ -75,7 +77,8 @@ const LoginNavigator = createStackNavigator({
             headerLeft: () => (<Icon name='menu' size={38} color="#ffeb3b" iconStyle={{marginLeft: 10}} onPress = {() => navigation.toggleDrawer()}/>),
         })
     },
-    SignUp : {screen: SignUp}
+    SignUp: { screen: SignUp },
+    'Forget Password': { screen: ForgetPassword }
     }, {
     initialRouteName: 'Login',
     defaultNavigationOptions: () => ({
@@ -180,6 +183,28 @@ const SellerBooksNavigator = createStackNavigator({
     })
 })
 
+const ProfileNavigator = createStackNavigator({
+    Profile: {
+        screen: Profile,
+        params: {
+            userInfo: userInfo
+        }
+    }
+    }, {
+    defaultNavigationOptions: ({navigation}) => ({
+        headerStyle: {
+            backgroundColor: '#00695c',
+            height: 70
+        },
+        headerTintColor: '#ffeb3b',
+        headerTitleStyle: {
+            color: '#ffeb3b'
+        },
+            headerLeft: <Icon name='menu' size={38} color="#ffeb3b" iconStyle={{ marginLeft: 10 }} onPress={() => navigation.toggleDrawer()} />,
+        headerTransparent: true
+    })
+})
+
 const CustomDrawerContentComponent = (props) => (
     <ScrollView>
         <SafeAreaView style={styles.container} forceInset={{ top: 'always', horizontal: 'never' }}>
@@ -213,6 +238,13 @@ const MainNavigator = createDrawerNavigator({
         navigationOptions: {
             title: 'Home',
             drawerLabel: 'Home',
+        }
+    },
+    Profile: {
+        screen: ProfileNavigator,
+        navigationOptions: {
+            title: 'Profile',
+            drawerLabel: () => { if(userInfo.isAuthenticated) return "Profile"; else return null },
         }
     },
     Cart: {

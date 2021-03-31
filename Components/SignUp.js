@@ -9,7 +9,8 @@ export default class SignUp extends React.Component {
         password:"",
         confirmPassword: "",
         name: "",
-        phoneNo: ""
+        phoneNo: "",
+        address: ""
     }
 
     handleSignUp = () => {
@@ -73,6 +74,14 @@ export default class SignUp extends React.Component {
                         placeholder="Confirm Password..." 
                         placeholderTextColor="#003f5c"
                         onChangeText={text => this.setState({confirmPassword:text})}/>
+                </View>
+                <View style={styles.inputView} >
+                    <TextInput
+                        numberOfLines={3}
+                        style={styles.inputText}
+                        placeholder="Address" 
+                        placeholderTextColor="#003f5c"
+                        onChangeText={text => this.setState({address:text})}/>
                 </View>
                 <TouchableOpacity onPress={this.handleSignUp} style={styles.loginBtn}>
                     <Text style={styles.loginText}>SIGN UP</Text>

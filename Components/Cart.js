@@ -4,7 +4,7 @@ import { ListItem, Avatar } from 'react-native-elements'
 import Toast from 'react-native-tiny-toast'
 import Swipeout from 'react-native-swipeout'
 import { getUser, isAuthenticatedAsync } from '../utils/user'
-import { getCart, removeFromCart, clearCart, postOrder } from '../utils/requests'
+import { getCart, removeFromCart, clearCart, postOrder, getInvoice } from '../utils/requests'
 import Payment from './Payment'
 
 export default class Cart extends Component {
@@ -12,7 +12,6 @@ export default class Cart extends Component {
         loading: true,
         cart: [],
         totalSum : 0,
-        payment: false,
         response: {},
         paymentStatus: '',
         email: '',
@@ -178,6 +177,14 @@ export default class Cart extends Component {
                 if(paid === true){
                     this.setState({paymentStatus: 'Payment Success'})
                     Toast.showSuccess('Book Ordered Successfully')
+                    this.setState({cart: []})
+                    getInvoice(stripeResponse.data.orderId, headers)
+                        .then(res => {
+                            console.log(res.data)
+                        })
+                        .catch(err => {
+                            console.log(err)
+                        })
                 }else{
                     this.setState({ paymentStatus: 'Payment failed due to some issue' })
                     Toast.show('Payment Failed')
@@ -294,9 +301,6 @@ export default class Cart extends Component {
                                 </Modal>
                             </View>
                         ) : null
-                    }
-                    {
-                        this.state.payment ? (<Payment onCheckStatus={this.onCheckStatus} amount={this.state.totalSum} />): null
                     }
                 </View>
             ) : (<View></View>)
