@@ -185,6 +185,7 @@ export default class Cart extends Component {
                         .catch(err => {
                             console.log(err)
                         })
+                        .finally(() => this.props.navigation.navigate('Orders'))
                 }else{
                     this.setState({ paymentStatus: 'Payment failed due to some issue' })
                     Toast.show('Payment Failed')

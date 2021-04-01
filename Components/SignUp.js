@@ -50,7 +50,7 @@ export default class SignUp extends React.Component {
                         style={styles.inputText}
                         placeholder="Name..." 
                         placeholderTextColor="#003f5c"
-                        onChangeText={text => this.setState({name:text})}/>
+                        onChangeText={text => this.setState({username:text})}/>
                 </View>
                 <View style={styles.inputView} >
                     <TextInput  

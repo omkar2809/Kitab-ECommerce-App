@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import { StyleSheet, Text, View, Modal, TouchableOpacity } from 'react-native';
 import { Input } from 'react-native-elements' 
+import Toast from 'react-native-tiny-toast'
 import UserAvatar from 'react-native-user-avatar'
 import { getProfile, updateProfile } from '../utils/requests'
 import {  getUser } from '../utils/user'
-import Toast from 'react-native-tiny-toast'
 export default class Profile extends Component {
     state = {
         profile: {},
@@ -30,7 +30,7 @@ export default class Profile extends Component {
             })
             .then(res => {
                 console.log(res.data)
-                const avatarCharList = res.data.user.name.split()
+                const avatarCharList = res.data.user.name.split(' ')
                 if (avatarCharList.length > 1) {
                     this.setState({avatar: (avatarCharList[0][0] + avatarCharList[1][0]).toUpperCase()})
                 } else {
@@ -78,7 +78,7 @@ export default class Profile extends Component {
         })
         .then(res => {
             console.log(res.data)
-            const avatarCharList = res.data.user.name.split()
+            const avatarCharList = res.data.user.username.split()
             if (avatarCharList.length > 1) {
                 this.setState({avatar: (avatarCharList[0][0] + avatarCharList[1][0]).toUpperCase()})
             } else {
@@ -105,7 +105,7 @@ export default class Profile extends Component {
                 <UserAvatar style={styles.avatar} size={100} bgColor='#ffeb3b' name={this.state.avatar}/>
             <View style={styles.body}>
                 <View style={styles.bodyContent}>
-                    <Text style={styles.name}>{this.state.profile.name}</Text>
+                    <Text style={styles.name}>{this.state.profile.username}</Text>
                     <Text style={styles.description}>Email: { this.state.profile.email }</Text>
                         <Text style={styles.description}>Phone No: {this.state.profile.phoneNo}</Text>
                         <Text style={styles.description}>Address: { this.state.profile.address || '' }</Text>
@@ -127,7 +127,7 @@ export default class Profile extends Component {
                         </Text>
                         <Input
                             placeholder="Name"
-                            onChangeText={(name) => this.updatedProfileDetails.name = name}
+                            onChangeText={(name) => this.updatedProfileDetails.username = name}
                             inputContainerStyle={styles.formInput}
                             label={'Name'}
                             labelStyle={styles.labelStyle}

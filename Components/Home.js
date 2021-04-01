@@ -13,6 +13,7 @@ export default class Home extends Component {
         loading: true
     }
     books = []
+    
     componentDidMount() {
         this._navListener = this.props.navigation.addListener('didFocus',() => {
             // this.setState({loading: true})

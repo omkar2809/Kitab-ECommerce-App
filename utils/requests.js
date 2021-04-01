@@ -78,4 +78,8 @@ export const updateProfile = (payload, headers) => {
     return axios.put(`${baseUrl}/updateProfile`, payload, headers)
 }
 
+export const getOrders = (headers) => {
+    return axios.get(`${baseUrl}/getOrders`, headers)
+}
+
 export default req = { login, signUp }
