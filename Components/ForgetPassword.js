@@ -64,7 +64,7 @@ export default class ForgetPassword extends Component {
     render() {
         return (
             <View style={styles.container}>
-                <Image source={require('../assets/book.png')} style={styles.logoImage} />
+                <Image source={require('../assets/login_cover_photo.png')} style={styles.logoImage} />
                 <Text style={styles.logo}>Kitab</Text>
                 <View style={styles.inputView} >
                     <TextInput  
@@ -126,24 +126,24 @@ export default class ForgetPassword extends Component {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#00695c',
-        alignItems: 'center',
+        backgroundColor: '#fff',
         justifyContent: 'center',
     },
     logo:{
+        alignSelf:'center',
         fontWeight:"bold",
         fontSize:50,
-        color:"#ffeb3b",
+        color:"#240046",
         marginBottom:40
     },
     inputView:{
-        width:"80%",
-        backgroundColor:"#fff",
-        borderRadius:25,
-        height:50,
-        marginBottom:20,
+        marginHorizontal:15,
+        backgroundColor:"#dee2e6",
+        borderRadius:9,
+        height:40,
+        marginBottom:10,
         justifyContent:"center",
-        padding:20
+        paddingHorizontal:15
     },
     inputText:{
         height:50,
@@ -154,10 +154,10 @@ const styles = StyleSheet.create({
         fontSize:11
     },
     loginBtn:{
-        width:"80%",
-        backgroundColor:"#ffeb3b",
-        borderRadius:25,
-        height:50,
+        marginHorizontal:15,
+        backgroundColor:"#613dc1",
+        borderRadius:9,
+        height:45,
         alignItems:"center",
         justifyContent:"center",
         marginTop:40,
@@ -167,7 +167,8 @@ const styles = StyleSheet.create({
         color:"white"
     },
     logoImage: {
-        width: 100,
-        height: 100
+        alignSelf:'center',
+        width: 130,
+        height: 130
     }
 });

@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View, TextInput, TouchableOpacity, Image } from 'react-native';
+import { StyleSheet, Text, View, TextInput, TouchableOpacity, Image, ScrollView } from 'react-native';
 import { signUp } from '../utils/requests'
 import Toast from 'react-native-tiny-toast'
 
@@ -36,59 +36,63 @@ export default class SignUp extends React.Component {
     render(){
         return (
             <View style={styles.container}>
-                <Image source={require('../assets/book.png')} style={styles.logoImage} />
-                <Text style={styles.logo}>Kitab</Text>
-                <View style={styles.inputView} >
-                    <TextInput  
-                        style={styles.inputText}
-                        placeholder="Email..." 
-                        placeholderTextColor="#003f5c"
-                        onChangeText={text => this.setState({email:text})}/>
-                </View>
-                <View style={styles.inputView} >
-                    <TextInput  
-                        style={styles.inputText}
-                        placeholder="Name..." 
-                        placeholderTextColor="#003f5c"
-                        onChangeText={text => this.setState({username:text})}/>
-                </View>
-                <View style={styles.inputView} >
-                    <TextInput  
-                        style={styles.inputText}
-                        placeholder="Phone No..." 
-                        placeholderTextColor="#003f5c"
-                        onChangeText={text => this.setState({phoneNo:text})}/>
-                </View>
-                <View style={styles.inputView} >
-                    <TextInput  
-                        secureTextEntry
-                        style={styles.inputText}
-                        placeholder="Password..." 
-                        placeholderTextColor="#003f5c"
-                        onChangeText={text => this.setState({password:text})}/>
-                </View>
-                <View style={styles.inputView} >
-                    <TextInput  
-                        secureTextEntry
-                        style={styles.inputText}
-                        placeholder="Confirm Password..." 
-                        placeholderTextColor="#003f5c"
-                        onChangeText={text => this.setState({confirmPassword:text})}/>
-                </View>
-                <View style={styles.inputView} >
-                    <TextInput
-                        numberOfLines={3}
-                        style={styles.inputText}
-                        placeholder="Address" 
-                        placeholderTextColor="#003f5c"
-                        onChangeText={text => this.setState({address:text})}/>
-                </View>
-                <TouchableOpacity onPress={this.handleSignUp} style={styles.loginBtn}>
-                    <Text style={styles.loginText}>SIGN UP</Text>
-                </TouchableOpacity>
-                <TouchableOpacity onPress={() => this.props.navigation.goBack()}>
-                    <Text style={styles.loginText}>log In</Text>
-                </TouchableOpacity>
+                <ScrollView
+                    showsVerticalScrollIndicator={false}
+                >
+                    <Image source={require('../assets/login_cover_photo.png')} style={styles.logoImage} />
+                    <Text style={styles.logo}>Kitab</Text>
+                    <View style={styles.inputView} >
+                        <TextInput  
+                            style={styles.inputText}
+                            placeholder="Email" 
+                            placeholderTextColor="#000"
+                            onChangeText={text => this.setState({email:text})}/>
+                    </View>
+                    <View style={styles.inputView} >
+                        <TextInput  
+                            style={styles.inputText}
+                            placeholder="Name" 
+                            placeholderTextColor="#000"
+                            onChangeText={text => this.setState({username:text})}/>
+                    </View>
+                    <View style={styles.inputView} >
+                        <TextInput  
+                            style={styles.inputText}
+                            placeholder="Phone No" 
+                            placeholderTextColor="#000"
+                            onChangeText={text => this.setState({phoneNo:text})}/>
+                    </View>
+                    <View style={styles.inputView} >
+                        <TextInput  
+                            secureTextEntry
+                            style={styles.inputText}
+                            placeholder="Password" 
+                            placeholderTextColor="#000"
+                            onChangeText={text => this.setState({password:text})}/>
+                    </View>
+                    <View style={styles.inputView} >
+                        <TextInput  
+                            secureTextEntry
+                            style={styles.inputText}
+                            placeholder="Confirm Password" 
+                            placeholderTextColor="#000"
+                            onChangeText={text => this.setState({confirmPassword:text})}/>
+                    </View>
+                    <View style={styles.inputView} >
+                        <TextInput
+                            numberOfLines={3}
+                            style={styles.inputText}
+                            placeholder="Address" 
+                            placeholderTextColor="#000"
+                            onChangeText={text => this.setState({address:text})}/>
+                    </View>
+                    <TouchableOpacity onPress={this.handleSignUp} style={styles.loginBtn}>
+                        <Text style={styles.loginText}>SIGN UP</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity onPress={() => this.props.navigation.goBack()}>
+                        <Text style={styles.loginText}>log In</Text>
+                    </TouchableOpacity>
+                </ScrollView>
             </View>
         );
     }
@@ -97,24 +101,24 @@ export default class SignUp extends React.Component {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#00695c',
-        alignItems: 'center',
+        backgroundColor: '#fff',
         justifyContent: 'center',
     },
     logo:{
+        alignSelf:'center',
         fontWeight:"bold",
         fontSize:50,
-        color:"#ffeb3b",
+        color:"#240046",
         marginBottom:40
     },
     inputView:{
-        width:"80%",
-        backgroundColor:"#fff",
-        borderRadius:25,
-        height:50,
-        marginBottom:20,
+        marginHorizontal:15,
+        backgroundColor:"#dee2e6",
+        borderRadius:9,
+        height:40,
+        marginBottom:10,
         justifyContent:"center",
-        padding:20
+        paddingHorizontal:15
     },
     inputText:{
         height:50,
@@ -125,20 +129,22 @@ const styles = StyleSheet.create({
         fontSize:11
     },
     loginBtn:{
-        width:"80%",
-        backgroundColor:"#ffeb3b",
-        borderRadius:25,
-        height:50,
+        marginHorizontal:15,
+        backgroundColor:"#613dc1",
+        borderRadius:9,
+        height:45,
         alignItems:"center",
         justifyContent:"center",
         marginTop:40,
         marginBottom:10
     },
     loginText:{
-        color:"white"
+        color:"white",
     },
     logoImage: {
-        width: 100,
-        height: 100
+        alignSelf:'center',
+        marginTop:'30%',
+        width: 130,
+        height: 130
     }
 });

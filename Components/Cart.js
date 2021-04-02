@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { FlatList, View, Text, Alert, StyleSheet, TouchableOpacity, Modal } from 'react-native'
+import { FlatList, View, Text, Alert, StyleSheet, TouchableOpacity, Modal, Image } from 'react-native'
 import { ListItem, Avatar } from 'react-native-elements'
 import Toast from 'react-native-tiny-toast'
 import Swipeout from 'react-native-swipeout'
@@ -270,7 +270,8 @@ export default class Cart extends Component {
                     {
                         this.state.cart.length == 0 ? (
                             <View style={styles.nullContainer}>
-                                <Text style={styles.nullText}>Cart is Empty!!</Text>
+                                <Image style={styles.emptycartStyle} source={require('../assets/empty_cart.png')}/>
+                                <Text style={styles.nullText}>Cart is Empty!</Text>
                             </View>
                         ) : (
                             <View>
@@ -330,7 +331,8 @@ export default class Cart extends Component {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        // alignItems: 'center'
+        // alignItems: 'center',
+        backgroundColor:'#fff'
     },
     bottom: {
         flex: 1,
@@ -340,14 +342,15 @@ const styles = StyleSheet.create({
         marginBottom: 36,
     },
     button: {
+        // borderTopWidth:1,
+        // borderColor:'#000',
         position: 'absolute',
         bottom:0,
         flexDirection: 'row',
-        alignItems: 'center',
         justifyContent: 'center'
     },
     loginText:{
-        color:"#ffeb3b"
+        color:"#fff"
     },
     adminBtnContainer: {
         flex: 1,
@@ -359,14 +362,14 @@ const styles = StyleSheet.create({
         // position: 'absolute',
         bottom:0,
         width:"35%",
-        backgroundColor:"#00695c",
-        borderRadius:20,
-        height:50,
+        backgroundColor:"#613dc1",
+        borderRadius:9,
+        height:45,
         alignItems:"center",
         justifyContent:"center",
         marginTop:40,
         marginBottom:10,
-        margin: 10
+        marginHorizontal:10
     },
     totalTextView: {
         bottom:0,
@@ -376,7 +379,7 @@ const styles = StyleSheet.create({
         justifyContent:"center",
         marginTop:40,
         marginBottom:10,
-        margin: 10
+        marginHorizontal:10
     },
     totalSumText: {
         fontSize: 20,
@@ -387,9 +390,9 @@ const styles = StyleSheet.create({
         alignItems: 'center',
     },
     modalText: {
-        color: '#00695c',
-        fontSize: 20,
-        marginBottom: 40
+        color: '#000',
+        fontSize: 15,
+        marginBottom: 20
     },
     nullContainer: {
         flex: 1,
@@ -398,7 +401,11 @@ const styles = StyleSheet.create({
     },
     nullText: {
         fontWeight: 'bold',
-        color: '#00695c',
+        color: '#000',
         fontSize: 20
+    },
+    emptycartStyle:{
+        width:200,
+        height:150
     }
 })

@@ -66,11 +66,12 @@ export default class SellersBooks extends Component {
     );
     render() {
         return !this.state.loading ? (
-        <View>
+        <View style={{backgroundColor:'#fff',flex:1}}>
             {
                 this.books.length === 0 ? (
-                    <View styles={styles.nullContainer}>
-                        <Text styles={styles.nullText}>Books are not available ..</Text>
+                    <View style={styles.nullContainer}>
+                        <Image source={require('../assets/not_found.png')} style={styles.notFoundImage}/>
+                        <Text style={styles.nullText}>Books are not available</Text>
                     </View>
                 ): (
                 <FlatList
@@ -91,6 +92,7 @@ export default class SellersBooks extends Component {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
+        backgroundColor:'#fff',
         justifyContent: 'center',
         alignItems: 'center',
         marginLeft: BOOK_ITEM_MARGIN,
@@ -99,12 +101,12 @@ const styles = StyleSheet.create({
         height: BOOK_ITEM_HEIGHT + 75,
         borderColor: '#cccccc',
         borderWidth: 0.5,
-        borderRadius: 15
+        borderRadius: 9
     },
     photo: {
         width: (SCREEN_WIDTH - (bookNumColumns + 1) * BOOK_ITEM_MARGIN) / bookNumColumns,
         height: BOOK_ITEM_HEIGHT,
-        borderRadius: 15,
+        borderRadius: 9,
         borderBottomLeftRadius: 0,
         borderBottomRightRadius: 0
     },
@@ -119,17 +121,22 @@ const styles = StyleSheet.create({
         marginLeft: 5,
     },
     price: {
-        marginTop: 5,
-        marginBottom: 5
+        marginVertical:5
     },
     nullContainer: {
         flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center'
+        justifyContent:'center',
+        backgroundColor:'#fff',
+        alignItems:'center',
+    },
+    notFoundImage:{
+        height:200,
+        width:'80%',
+        alignSelf:'center'
     },
     nullText: {
-        fontWeight: 'bold',
-        color: '#00695c',
+        backgroundColor:'#fff',
+        alignSelf:'center',
         fontSize: 20
     }
 });

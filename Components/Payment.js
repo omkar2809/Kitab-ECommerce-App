@@ -33,8 +33,8 @@ export default function Payment(props){
                     flex-direction: column;
                     height: 200px;
                     justify-content: space-around;
-                    background-color: #00695c;
-                    border-radius: 20px;
+                    background-color: #33415c;
+                    border-radius: 10px;
                     padding: 10px;
                     padding-top: 20px;
                     padding-bottom: 20px;
@@ -49,7 +49,7 @@ export default function Payment(props){
                 }
                 .card-name{
                     padding: 20;
-                    color: '#ffeb3b';
+                    color: '#fff';
                     font-weight: 500;
                     font-size: '25px';
                     background-color: transparent;
@@ -59,7 +59,7 @@ export default function Payment(props){
 
                 input {
                     outline:none;
-                    color: #ffeb3b;
+                    color: #fff;
                     font-size: '25px';
                     font-weight: 500;
                     background-color: transparent;
@@ -93,8 +93,8 @@ export default function Payment(props){
                         align-items: center;
                     }
                     .btn-color {
-                      background-color: #ffeb3b;
-                      color: #00695c;
+                      background-color: #613dc1;
+                      color: #fff;
                       margin-bottom: 20px;
                     }
                 
@@ -183,7 +183,7 @@ export default function Payment(props){
                             hidePostalCode: true,
                             style: {
                                 base: {
-                                color: '#ffeb3b',
+                                color: '#fff',
                                 fontWeight: 500,
                                 fontFamily: 'Source Code Pro, Consolas, Menlo, monospace',
                                 fontSize: '20px',

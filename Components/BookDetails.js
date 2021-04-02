@@ -105,18 +105,20 @@ export default class BookDetails extends Component {
             <ScrollView>
                 {
                     !this.state.loading ? (
-                        <View>
+                        <View style={{backgroundColor:'#fff'}}>
                             <View style={styles.container}>
                                 <Image style={styles.photo} source={{ uri: this.state.book.imageUrl }} />
-                                <Text style={styles.title}>{this.state.book.title}</Text>
-                                <Text style={styles.price}>₹ {this.state.book.price}</Text>
+                                <View style={{flex:1,flexDirection:'row',marginTop:15}}> 
+                                    <Text style={styles.title} numberOfLines={1}>{this.state.book.title}</Text>
+                                    <Text style={styles.price}>₹ {this.state.book.price}</Text>
+                                </View>
                             </View>
                             <View style={styles.stockContainer}>
                                 {
                                     this.state.book.stock > 0 ? (
                                         <View style={styles.stockContainer}>
-                                            <Text style={styles.inStock} >#In Stock</Text>
-                                            <Text style={styles.inStock}>{this.state.book.stock} left</Text>
+                                            <Text style={styles.inStock} >#In Stock: {this.state.book.stock} left</Text>
+                                            {/* <Text style={styles.inStock}></Text> */}
                                         </View>
                                     ) : (
                                         <View style={styles.stockContainer} >
@@ -183,42 +185,35 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         justifyContent: 'center',
-        alignItems: 'center',
-        marginTop: 20,
     },
     stockContainer: {
         flex: 1,
-        justifyContent: 'flex-start',
-        alignItems: 'flex-start',
+        // justifyContent: 'flex-start',
+        // alignItems: 'center',
         marginTop: 2,
-        marginLeft:20
+        marginHorizontal:10
     },
     detailsContainer: {
         flex: 1,
-        justifyContent: 'flex-start',
+        justifyContent: 'center',
         alignItems: 'flex-start',
         marginTop: 2,
-        marginLeft:20
+        marginHorizontal:10
     },
     photo: {
-        width: 375,
+        width: '100%',
+        flex:1,
         height:400,
-        borderRadius: 15
     },
     title: {
         flex: 1,
         fontSize: 22,
         fontWeight: 'bold',
         textAlign: 'center',
-        marginTop: 3,
-        marginRight: 5,
-        marginLeft: 5,
     },
     price: {
         flex: 1,
-        marginTop: 5,
-        marginBottom: 5,
-        fontSize: 20,
+        fontSize: 22,
         fontWeight: 'bold',
         textAlign: 'center',
     },
@@ -235,17 +230,17 @@ const styles = StyleSheet.create({
         fontSize: 17
     },
     loginBtn:{
-        width:"80%",
-        backgroundColor:"#00695c",
-        borderRadius:25,
-        height:50,
+        backgroundColor:"#613dc1",
+        borderRadius:9,
+        height:45,
         alignItems:"center",
         justifyContent:"center",
-        marginTop:40,
-        marginBottom:10
+        marginTop:20,
+        marginBottom:10,
+        marginHorizontal:15
     },
     loginText:{
-        color:"#ffeb3b"
+        color:"#fff"
     },
     adminBtnContainer: {
         flex: 1,

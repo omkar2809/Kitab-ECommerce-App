@@ -45,7 +45,7 @@ const HomeNavigator = createStackNavigator({
             screen: Home,
             navigationOptions: ({navigation}) => ({
                 drawerLabel: 'Home',
-                headerLeft: <Icon name='menu' size={38}  color="#ffeb3b" iconStyle={{marginLeft: 10}} onPress = {() => navigation.toggleDrawer()}/>,
+                headerLeft: <Icon name='menu' size={38}  color="#613dc1" iconStyle={{marginLeft: 10}} onPress = {() => navigation.toggleDrawer()}/>,
                 // detachPreviousScreen: true
         })
     },
@@ -54,12 +54,12 @@ const HomeNavigator = createStackNavigator({
     initialRouteName: 'Home',
     defaultNavigationOptions: () => ({
         headerStyle: {
-            backgroundColor: '#00695c',
-            height: 70
+            backgroundColor: '#fff',
+            height: 60
         },
-        headerTintColor: '#ffeb3b',
+        headerTintColor: '#613dc1',
         headerTitleStyle: {
-            color: '#ffeb3b'
+            color: '#613dc1'
         },
     }),
 })
@@ -75,7 +75,7 @@ const LoginNavigator = createStackNavigator({
                 if(userInfo.isAuthenticated) return null
                 else return 'Login'
             },
-            headerLeft: () => (<Icon name='menu' size={38} color="#ffeb3b" iconStyle={{marginLeft: 10}} onPress = {() => navigation.toggleDrawer()}/>),
+            headerLeft: () => (<Icon name='menu' size={38} color="#613dc1" iconStyle={{marginLeft: 10}} onPress = {() => navigation.toggleDrawer()}/>),
         })
     },
     SignUp: { screen: SignUp },
@@ -84,13 +84,13 @@ const LoginNavigator = createStackNavigator({
     initialRouteName: 'Login',
     defaultNavigationOptions: () => ({
         headerStyle: {
-            backgroundColor: "#00695c",
-            height: 70
+            backgroundColor: "#fff",
+            height: 60
         },
         headerTitleStyle: {
-            color: "#ffeb3b"            
+            color: "#613dc1"            
         },
-        headerTintColor: "#ffeb3b",
+        headerTintColor: "#613dc1",
         headerTransparent: true,
     })
 });
@@ -100,7 +100,7 @@ const CartNavigator = createStackNavigator({
             screen: Cart,
             navigationOptions: ({navigation}) => ({
                 drawerLabel: 'Cart',
-                headerLeft: <Icon name='menu' size={38}  color="#ffeb3b" iconStyle={{marginLeft: 10}} onPress = {() => navigation.toggleDrawer()}/>
+                headerLeft: <Icon name='menu' size={38}  color="#613dc1" iconStyle={{marginLeft: 10}} onPress = {() => navigation.toggleDrawer()}/>
         })
     },
     BookDetails: { screen: BookDetails }
@@ -108,12 +108,12 @@ const CartNavigator = createStackNavigator({
     initialRouteName: 'Cart',
     defaultNavigationOptions: () => ({
         headerStyle: {
-            backgroundColor: '#00695c',
-            height: 70
+            backgroundColor: '#fff',
+            height: 60
         },
-        headerTintColor: '#ffeb3b',
+        headerTintColor: '#613dc1',
         headerTitleStyle: {
-            color: '#ffeb3b'
+            color: '#613dc1'
         }
     })
 })
@@ -123,7 +123,7 @@ const OrdersNavigator = createStackNavigator({
         screen: Orders,
         navigationOptions: ({navigation}) => ({
                 drawerLabel: 'Cart',
-                headerLeft: <Icon name='menu' size={38}  color="#ffeb3b" iconStyle={{marginLeft: 10}} onPress = {() => navigation.toggleDrawer()}/>
+                headerLeft: <Icon name='menu' size={38}  color="#613dc1" iconStyle={{marginLeft: 10}} onPress = {() => navigation.toggleDrawer()}/>
         })
     },
     'Order Details': { screen: OrderDetails }
@@ -131,12 +131,12 @@ const OrdersNavigator = createStackNavigator({
     initialRouteName: 'Orders',
     defaultNavigationOptions: () => ({
         headerStyle: {
-            backgroundColor: '#00695c',
-            height: 70
+            backgroundColor: '#fff',
+            height: 60
         },
-        headerTintColor: '#ffeb3b',
+        headerTintColor: '#613dc1',
         headerTitleStyle: {
-            color: '#ffeb3b'
+            color: '#613dc1'
         }
     })
 })
@@ -151,14 +151,14 @@ const SellBookNavigator = createStackNavigator({
     }, {
     defaultNavigationOptions: ({navigation}) => ({
         headerStyle: {
-            backgroundColor: '#00695c',
-            height: 70
+            backgroundColor: '#fff',
+            height: 60
         },
-        headerTintColor: '#ffeb3b',
+        headerTintColor: '#613dc1',
         headerTitleStyle: {
-            color: '#ffeb3b'
+            color: '#613dc1'
         },
-        headerLeft: <Icon name='menu' size={38}  color="#ffeb3b" iconStyle={{marginLeft: 10}} onPress = {() => navigation.toggleDrawer()}/>
+        headerLeft: <Icon name='menu' size={38}  color="#613dc1" iconStyle={{marginLeft: 10}} onPress = {() => navigation.toggleDrawer()}/>
     })
 })
 
@@ -167,7 +167,7 @@ const SellerBooksNavigator = createStackNavigator({
             screen: SellersBooks,
             navigationOptions: ({navigation}) => ({
                 drawerLabel: 'Books',
-                headerLeft: <Icon name='menu' size={38}  color="#ffeb3b" iconStyle={{marginLeft: 10}} onPress = {() => navigation.toggleDrawer()}/>
+                headerLeft: <Icon name='menu' size={38}  color="#613dc1" iconStyle={{marginLeft: 10}} onPress = {() => navigation.toggleDrawer()}/>
         })
     },
     BookDetails: { screen: BookDetails },
@@ -176,12 +176,12 @@ const SellerBooksNavigator = createStackNavigator({
     initialRouteName: "Seller's Books",
     defaultNavigationOptions: () => ({
         headerStyle: {
-            backgroundColor: '#00695c',
-            height: 70
+            backgroundColor: '#fff',
+            height: 60
         },
-        headerTintColor: '#ffeb3b',
+        headerTintColor: '#613dc1',
         headerTitleStyle: {
-            color: '#ffeb3b'
+            color: '#613dc1'
         }
     })
 })
@@ -196,14 +196,14 @@ const ProfileNavigator = createStackNavigator({
     }, {
     defaultNavigationOptions: ({navigation}) => ({
         headerStyle: {
-            backgroundColor: '#00695c',
-            height: 70
+            backgroundColor: '#fff',
+            height: 60
         },
-        headerTintColor: '#ffeb3b',
+        headerTintColor: '#613dc1',
         headerTitleStyle: {
-            color: '#ffeb3b'
+            color: '#613dc1'
         },
-            headerLeft: <Icon name='menu' size={38} color="#ffeb3b" iconStyle={{ marginLeft: 10 }} onPress={() => navigation.toggleDrawer()} />,
+            headerLeft: <Icon name='menu' size={38} color="#613dc1" iconStyle={{ marginLeft: 10 }} onPress={() => navigation.toggleDrawer()} />,
         headerTransparent: true
     })
 })
@@ -213,7 +213,7 @@ const CustomDrawerContentComponent = (props) => (
         <SafeAreaView style={styles.container} forceInset={{ top: 'always', horizontal: 'never' }}>
             <View style={styles.drawerHeader}>
                 <View style={{flex:1}}>
-                    <Image source={require('./assets/book.png')} style={styles.drawerImage} />
+                    <Image source={require('./assets/drawer.jpg')} style={styles.drawerImage} />
                 </View>
                 <View style={{flex: 2}}>
                     <Text style={styles.drawerHeaderText}>Kitab</Text>
@@ -287,12 +287,12 @@ const MainNavigator = createDrawerNavigator({
     },
 }, {
     initialRouteName: 'Home',
-    drawerBackgroundColor: '#00695c',
+    drawerBackgroundColor: '#fff',
     contentComponent: CustomDrawerContentComponent,
     contentOptions: {
-        activeTintColor: '#ffeb3b',
+        activeTintColor: '#000',
         // activeBackgroundColor: 'transparent',
-        inactiveTintColor: 'black',
+        inactiveTintColor: '#adb5bd',
         inactiveBackgroundColor: 'transparent',
     //   labelStyle: {
     //     fontSize: 15,
@@ -324,35 +324,39 @@ const styles = StyleSheet.create({
         flex: 1
     },
     drawerHeader: {
-        backgroundColor:'#00695c',
-        height: 140,
-        alignItems: 'center',
+        backgroundColor:'#fff',
+        // height: 140,
         justifyContent: 'center',
         flex: 1,
-        flexDirection: 'row'
+        flexDirection: 'row',
+        marginVertical:15,
+        alignItems:'center'
     },
     drawerHeaderText: {
-        color:'#ffeb3b',
+        color:'#240046',
         fontSize: 35,
-        fontWeight: 'bold'
+        fontWeight: 'bold',
+        marginLeft:30
     },
     drawerImage: {
-        margin: 10,
-        width: 80,
-        height: 80
+        marginHorizontal: 20,
+        width: 100,
+        height: 100
     },
     loginBtn:{
-        width:"80%",
-        backgroundColor:"#ffeb3b",
-        borderRadius:25,
-        height:50,
+        width:'90%',
+        marginHorizontal:15,
+        alignSelf:'center',
+        backgroundColor:"#613dc1",
+        borderRadius:9,
+        height:45,
         alignItems:"center",
         justifyContent:"center",
-        marginTop:40,
+        marginTop:20,
         marginBottom:10,
-        marginLeft: 27
+        // marginLeft: 27
     },
     loginText:{
-        color:"black"
+        color:"#fff"
     }
 })

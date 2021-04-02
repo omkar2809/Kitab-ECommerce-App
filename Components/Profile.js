@@ -102,13 +102,13 @@ export default class Profile extends Component {
         return !this.state.loading ? (
         <View style={styles.container}>
             <View style={styles.header}></View>
-                <UserAvatar style={styles.avatar} size={100} bgColor='#ffeb3b' name={this.state.avatar}/>
+                <UserAvatar style={styles.avatar} size={100} bgColor='#000' name={this.state.avatar}/>
             <View style={styles.body}>
                 <View style={styles.bodyContent}>
                     <Text style={styles.name}>{this.state.profile.username}</Text>
-                    <Text style={styles.description}>Email: { this.state.profile.email }</Text>
-                        <Text style={styles.description}>Phone No: {this.state.profile.phoneNo}</Text>
-                        <Text style={styles.description}>Address: { this.state.profile.address || '' }</Text>
+                    <Text style={styles.description}>Email: { this.state.profile.email?this.state.profile.email:"Edit details" }</Text>
+                        <Text style={styles.description}>Phone Number: {this.state.profile.phoneNo?this.state.profile.phoneNo:"Edit details"}</Text>
+                        <Text style={styles.description}>Address: { this.state.profile.address?this.state.profile.address:"Edit details" }</Text>
                     <TouchableOpacity onPress={() => this.toggleModal()} style={styles.buttonContainer}>
                         <Text style={styles.btnText} >Edit</Text>  
                     </TouchableOpacity>              
@@ -123,7 +123,7 @@ export default class Profile extends Component {
             >
                 <View style={styles.formContainer}>
                         <Text style={styles.logo}>
-                            Update Profile ..
+                            Update Profile
                         </Text>
                         <Input
                             placeholder="Name"
@@ -134,16 +134,16 @@ export default class Profile extends Component {
                             defaultValue={this.state.profile.name}
                             />
                         <Input
-                            placeholder="Phone No."
+                            placeholder="Phone Number"
                             onChangeText={(phoneNo) => this.updatedProfileDetails.phoneNo = phoneNo}
                             inputContainerStyle={styles.formInput}
-                            label={'Phone No.'}
+                            label={'Phone Number'}
                             labelStyle={styles.labelStyle}
                             defaultValue={this.state.profile.phoneNo}
                             />
                         <Input
                             placeholder="Address"
-                            numberOfLines={3}
+                            numberOfLines={1}
                             onChangeText={(address) => this.updatedProfileDetails.address = address}
                             inputContainerStyle={styles.formInput}
                             label={'Address'}
@@ -165,7 +165,7 @@ export default class Profile extends Component {
 
 const styles = StyleSheet.create({
     header:{
-        backgroundColor: "#00695c",
+        backgroundColor: "#fff",
         height:200,
     },
     avatar: {
@@ -189,13 +189,15 @@ const styles = StyleSheet.create({
     },
     bodyContent: {
         flex: 1,
-        alignItems: 'center',
-        padding:30,
+        marginTop:20
+        // padding:30,
     },
     name:{
+        marginHorizontal:15,
+        marginVertical:15,
         fontSize:28,
-        color: "#696969",
-        fontWeight: "600"
+        color: "#000",
+        fontWeight: "bold"
     },
     info:{
         fontSize:16,
@@ -204,51 +206,44 @@ const styles = StyleSheet.create({
     },
     description:{
         fontSize:16,
-        color: "#696969",
-        marginTop:10,
-        textAlign: 'center'
+        color: "#000",
+        marginHorizontal:15,
+        alignItems:'stretch'
     },
     buttonContainer: {
         marginTop:10,
         height:45,
-        flexDirection: 'row',
         justifyContent: 'center',
         alignItems: 'center',
         marginBottom:20,
-        width:250,
-        borderRadius:30,
-        backgroundColor: "#00695c",
+        marginHorizontal:15,
+        borderRadius:9,
+        backgroundColor: "#613dc1",
     },
     btnText: {
-        color:'#ffeb3b'
+        color:'#fff'
     },
     formContainer: {
-        alignItems: 'center',
         justifyContent: 'center',
-        margin: 20,
         flex: 1
     },
     formInput: {
-        borderColor: '#00695c',
-        marginBottom: 5,
-        borderWidth: 4,
-        borderBottomWidth: 4
+        backgroundColor:'#dee2e6',
+        borderRadius:6,
+        paddingHorizontal:15
     },
     formButton: {
         margin: 60
     },
     buttonStyle: {
         backgroundColor: '#ffeb3b',
-        borderWidth: 6,
         color: '#FFFFFF',
         borderColor: '#ffeb3b',
         height: 40,
         alignItems: 'center',
         justifyContent: 'center',
-        borderRadius: 30,
-        marginLeft: 35,
-        marginRight: 35,
-        marginTop: 15,
+        borderRadius: 9,
+        marginHorizontal:15,
     },
     textStyle: {
         backgroundColor: '#fff',
@@ -264,31 +259,32 @@ const styles = StyleSheet.create({
         fontSize: 16,
     },
     loginBtn:{
-        width:"80%",
-        backgroundColor:"#00695c",
-        borderRadius:25,
-        height:50,
+        backgroundColor:"#613dc1",
+        borderRadius:9,
+        height:45,
         alignItems:"center",
         justifyContent:"center",
         marginTop:40,
-        marginBottom:10
+        marginBottom:10,
+        marginHorizontal:15
     },
     loginText:{
-        color:"#ffeb3b"
+        color:"#fff"
     },
     logo:{
+        alignSelf:'center',
         fontWeight:"bold",
         fontSize:30,
-        color:"#00695c",
+        color:"#240046",
         marginBottom:40
     },
     labelStyle: {
         fontWeight: 'bold',
-        color: '#00695c'
+        color: '#000'
     },
     modalText: {
-        color: '#00695c',
-        fontSize: 20,
-        marginBottom: 40
+        color: '#000',
+        alignSelf:'center',
+        fontSize: 14,
     },
 });
