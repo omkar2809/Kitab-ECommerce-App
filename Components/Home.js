@@ -40,7 +40,7 @@ export default class Home extends Component {
             <View style={styles.container}>
                 <Image style={styles.photo} source={{ uri: item.imageUrl }} />
                 <Text style={styles.title}>{item.title}</Text>
-                <Text style={styles.price}>$ {item.price}</Text>
+                <Text style={styles.price}>₹ {item.price}</Text>
             </View>
         </TouchableOpacity>
     );

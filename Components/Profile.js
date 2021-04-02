@@ -30,7 +30,7 @@ export default class Profile extends Component {
             })
             .then(res => {
                 console.log(res.data)
-                const avatarCharList = res.data.user.name.split(' ')
+                const avatarCharList = res.data.user.username.split(' ')
                 if (avatarCharList.length > 1) {
                     this.setState({avatar: (avatarCharList[0][0] + avatarCharList[1][0]).toUpperCase()})
                 } else {

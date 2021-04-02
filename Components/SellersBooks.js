@@ -17,7 +17,7 @@ export default class SellersBooks extends Component {
 
     componentDidMount() {
         this._navListener = this.props.navigation.addListener('didFocus', async () => {
-            const toast = Toast.showLoading('Loading...')
+            const toast = Toast.showLoading('')
             console.log('component')
             const isAuth = await isAuthenticatedAsync()
             console.log('isAuth',isAuth)
@@ -60,7 +60,7 @@ export default class SellersBooks extends Component {
             <View style={styles.container}>
                 <Image style={styles.photo} source={{ uri: item.imageUrl }} />
                 <Text style={styles.title}>{item.title}</Text>
-                <Text style={styles.price}>$ {item.price}</Text>
+                <Text style={styles.price}>₹ {item.price}</Text>
             </View>
         </TouchableOpacity>
     );

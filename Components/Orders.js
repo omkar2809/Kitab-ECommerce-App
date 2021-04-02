@@ -98,7 +98,7 @@ export default class Orders extends Component {
                             mainContentStyle = styles.mainContent;
                         }
                         return(
-                            <TouchableOpacity style={styles.container}>
+                            <TouchableOpacity style={styles.container} onPress={() => this.props.navigation.navigate('Order Details', {order: Group})}>
                                 <Image source={{uri:Group.books[0].book.imageUrl}} style={styles.avatar}/>
                                 <View style={styles.content}>
                                     <View style={mainContentStyle}>
@@ -166,7 +166,7 @@ const styles = StyleSheet.create({
         backgroundColor: "#CCCCCC"
     },
     countMembers:{
-        color:"#20B2AA"
+        color:"#ffeb3b"
     },
     timeAgo:{
         fontSize:12,
@@ -174,7 +174,7 @@ const styles = StyleSheet.create({
     },
     groupName:{
         fontSize:18,
-        color:"#1E90FF"
+        color:"#00695c"
     },
     groupMembersContent:{
         flexDirection:'row',

@@ -15,7 +15,8 @@ export default class Cart extends Component {
         response: {},
         paymentStatus: '',
         email: '',
-        showModal: false
+        showModal: false,
+        outOFStockError: false
     }
 
     componentDidMount() {
@@ -42,8 +43,8 @@ export default class Cart extends Component {
                 })
                 .then(res => {
                     // this.books = res.data
-                    console.log(res.data)
-                    console.log(res.data.books.length)
+                    // console.log(res.data)
+                    // console.log(res.data.books.length)
                     // if(res.data.books.length > 0 && res.data.books.filter(Boolean).length === 0) {
                     //     Toast.hide(toast)
                     //     this.clearCartItems()
@@ -54,10 +55,17 @@ export default class Cart extends Component {
                     //     Toast.hide(toast)
                     //     this.setState({loading: false})
                     // }
-                    this.setState({cart: res.data.books.filter(Boolean), totalSum: res.data.totalSum})
-                    console.log('Books ',res.data.books.filter(Boolean))
+                    const cart = res.data.books.filter(Boolean)
+                    this.setState({cart: cart, totalSum: res.data.totalSum})
+                    // console.log('Books ',res.data.books.filter(Boolean))
                     Toast.hide(toast)
-                    this.setState({loading: false})
+                    this.setState({ loading: false })
+                    console.log(cart)
+                    cart.map(item => {
+                        if (item.book.stock == 0) {
+                            this.setState({outOFStockError: true})
+                        }
+                    })
                 })
                 .catch(err => {
                     console.log(err)
@@ -200,7 +208,8 @@ export default class Cart extends Component {
 
     render() {
         const renderCartItems = ({item, index}) => {
-            console.log('render cart ',item)
+            // console.log('render cart ', item)
+            // item.book.stock === 0 ? this.setState({outOFStockError: true}): null
             const rightButton = [{
                 text: 'Delete', 
                 type: 'delete',
@@ -231,7 +240,8 @@ export default class Cart extends Component {
                         <Avatar rounded source={{uri: item.book.imageUrl}} />
                         <ListItem.Content>
                         <ListItem.Title>{item.book.title}</ListItem.Title>
-                        <ListItem.Subtitle>{'Quantity '+ item.quantity}</ListItem.Subtitle>
+                            <ListItem.Subtitle>{'Price ₹ '+ item.book.price}</ListItem.Subtitle>
+                            <ListItem.Subtitle>{'Quantity ' + item.quantity}</ListItem.Subtitle>
                         </ListItem.Content>
                         <ListItem.Chevron type='font-awesome' name='trash' size={30} onPress={() => Alert.alert(
                             'Remove From Cart?',
@@ -279,7 +289,15 @@ export default class Cart extends Component {
                                     <View style={styles.totalTextView}>
                                         <Text style={styles.totalSumText}>Total: ₹ {this.state.totalSum}</Text>
                                     </View>
-                                    <TouchableOpacity onPress={() => this.toggleModal()} style={styles.adminBtn}>
+                                    <TouchableOpacity onPress={() => {
+                                        if (this.state.outOFStockError) {
+                                            Alert.alert(
+                                                'Out of Stock',
+                                                'Some Books are not in Stock'
+                                            )
+                                        }
+                                        else this.toggleModal()
+                                    }} style={styles.adminBtn}>
                                         <Text style={styles.loginText}>Order</Text>
                                     </TouchableOpacity>
                                     <TouchableOpacity  onPress={() => this.clearCartItems()} style={styles.adminBtn}>

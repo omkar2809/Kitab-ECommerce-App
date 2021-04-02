@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { View, Image, ScrollView, Text, StyleSheet, TouchableOpacity } from 'react-native'
+import { View, Image, ScrollView, Text, StyleSheet, TouchableOpacity, Alert } from 'react-native'
 import Toast from 'react-native-tiny-toast'
 import { getUser, isAuthenticated } from '../utils/user'
 import { addToCart, deleteBook } from '../utils/requests'
@@ -135,16 +135,37 @@ export default class BookDetails extends Component {
                             {
                                 !this.state.admin ? (
                                     <View style={styles.container}>
-                                        <TouchableOpacity  onPress={() => this.addBookToCart(this.state.book.id)}  style={styles.loginBtn}>
-                                            <Text style={styles.loginText}>Add to Cart</Text>
-                                        </TouchableOpacity>
+                                        {
+                                            this.state.book.stock > 0 ? (
+                                                <TouchableOpacity  onPress={() => this.addBookToCart(this.state.book.id)}  style={styles.loginBtn}>
+                                                    <Text style={styles.loginText}>Add to Cart</Text>
+                                                </TouchableOpacity>
+                                            ): null
+                                        }
                                     </View>
                                 ) : (
                                     <View style={styles.adminBtnContainer}>
                                         <TouchableOpacity onPress={() => this.props.navigation.push('UpdateDetails' , { book: this.state.book })}  style={styles.adminBtn}>
                                             <Text style={styles.loginText}>Update</Text>
                                         </TouchableOpacity>
-                                        <TouchableOpacity onPress={() => this.removeBook(this.state.book.id)}  style={styles.adminBtn}>
+                                            <TouchableOpacity onPress={() => {
+                                                Alert.alert(
+                                                    'Remove book?',
+                                                    'Are you sure you wish to remove the book ' + this.state.book.title + '?',
+                                                    [
+                                                        { 
+                                                            text: 'Cancel', 
+                                                            onPress: () => console.log('Not Deleted'),
+                                                            style: ' cancel'
+                                                        },
+                                                        {
+                                                            text: 'OK',
+                                                            onPress: () => this.removeBook(this.state.book.id)
+                                                        }
+                                                    ],
+                                                    { cancelable: false }
+                                                )
+                                        }}  style={styles.adminBtn}>
                                             <Text style={styles.loginText}>Remove</Text>
                                         </TouchableOpacity>
                                     </View>

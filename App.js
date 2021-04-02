@@ -17,6 +17,7 @@ import BookDetails from './Components/BookDetails'
 import updateBookForm from './Components/updateBookForm'
 import Profile from './Components/Profile'
 import ForgetPassword from './Components/ForgetPassword'
+import OrderDetails from './Components/OrderDetails'
 
 var userInfo = { isAuthenticated: false }
 
@@ -120,12 +121,15 @@ const CartNavigator = createStackNavigator({
 const OrdersNavigator = createStackNavigator({
     Orders: {
         screen: Orders,
-        params: {
-            userInfo: userInfo
-        }
-    }
+        navigationOptions: ({navigation}) => ({
+                drawerLabel: 'Cart',
+                headerLeft: <Icon name='menu' size={38}  color="#ffeb3b" iconStyle={{marginLeft: 10}} onPress = {() => navigation.toggleDrawer()}/>
+        })
+    },
+    'Order Details': { screen: OrderDetails }
     }, {
-    defaultNavigationOptions: ({navigation}) => ({
+    initialRouteName: 'Orders',
+    defaultNavigationOptions: () => ({
         headerStyle: {
             backgroundColor: '#00695c',
             height: 70
@@ -133,8 +137,7 @@ const OrdersNavigator = createStackNavigator({
         headerTintColor: '#ffeb3b',
         headerTitleStyle: {
             color: '#ffeb3b'
-        },
-        headerLeft: <Icon name='menu' size={38}  color="#ffeb3b" iconStyle={{marginLeft: 10}} onPress = {() => navigation.toggleDrawer()}/>
+        }
     })
 })
 
