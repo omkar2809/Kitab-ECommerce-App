@@ -102,7 +102,7 @@ export default class BookDetails extends Component {
 
     render() {
         return (
-            <ScrollView>
+            <ScrollView style={{backgroundColor:'#fff'}}>
                 {
                     !this.state.loading ? (
                         <View style={{backgroundColor:'#fff'}}>
@@ -250,8 +250,8 @@ const styles = StyleSheet.create({
     },
     adminBtn:{
         width:"35%",
-        backgroundColor:"#00695c",
-        borderRadius:25,
+        backgroundColor:"#613dc1",
+        borderRadius:9,
         height:50,
         alignItems:"center",
         justifyContent:"center",

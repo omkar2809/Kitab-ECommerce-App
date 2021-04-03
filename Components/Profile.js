@@ -102,7 +102,7 @@ export default class Profile extends Component {
         return !this.state.loading ? (
         <View style={styles.container}>
             <View style={styles.header}></View>
-                <UserAvatar style={styles.avatar} size={100} bgColor='#000' name={this.state.avatar}/>
+                <UserAvatar style={styles.avatar} size={100} bgColor='#240046' name={this.state.avatar}/>
             <View style={styles.body}>
                 <View style={styles.bodyContent}>
                     <Text style={styles.name}>{this.state.profile.username}</Text>
@@ -182,7 +182,7 @@ const styles = StyleSheet.create({
     name:{
         fontSize:22,
         color:"#FFFFFF",
-        fontWeight:'600',
+        fontWeight: '600'
     },
     body:{
         marginTop:40,
@@ -193,10 +193,11 @@ const styles = StyleSheet.create({
         // padding:30,
     },
     name:{
-        marginHorizontal:15,
-        marginVertical:15,
+        // marginHorizontal:15,
+        // marginVertical:15,
+        alignSelf: 'center',
         fontSize:28,
-        color: "#000",
+        color: "#240046",
         fontWeight: "bold"
     },
     info:{
@@ -208,10 +209,11 @@ const styles = StyleSheet.create({
         fontSize:16,
         color: "#000",
         marginHorizontal:15,
-        alignItems:'stretch'
+        alignItems: 'stretch',
+        marginTop: 15
     },
     buttonContainer: {
-        marginTop:10,
+        marginTop:50,
         height:45,
         justifyContent: 'center',
         alignItems: 'center',

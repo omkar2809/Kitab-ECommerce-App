@@ -119,6 +119,7 @@ export default class Orders extends Component {
                     }}/>
             ) : (
                     <View style={styles.nullContainer}>
+                        <Image source={require('../assets/not_found.png')} style={styles.notFoundImage}/>
                         <Text style={styles.nullText}>No Orders</Text>
                     </View>
                 )
@@ -166,7 +167,7 @@ const styles = StyleSheet.create({
         backgroundColor: "#CCCCCC"
     },
     countMembers:{
-        color:"#ffeb3b"
+        color:"#613dc1"
     },
     timeAgo:{
         fontSize:12,
@@ -174,7 +175,7 @@ const styles = StyleSheet.create({
     },
     groupName:{
         fontSize:18,
-        color:"#00695c"
+        color:"#240046"
     },
     groupMembersContent:{
         flexDirection:'row',
@@ -182,12 +183,18 @@ const styles = StyleSheet.create({
     },
     nullContainer: {
         flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center'
+        justifyContent:'center',
+        backgroundColor:'#fff',
+        alignItems:'center',
+    },
+    notFoundImage:{
+        height:200,
+        width:'80%',
+        alignSelf:'center'
     },
     nullText: {
-        fontWeight: 'bold',
-        color: '#00695c',
+        backgroundColor:'#fff',
+        alignSelf:'center',
         fontSize: 20
     }
 });

@@ -214,7 +214,8 @@ const styles = StyleSheet.create({
         fontSize:30,
         alignSelf:'center',
         color:"#240046",
-        marginBottom:40
+        marginBottom: 40,
+        marginTop: 20
     },
     labelStyle: {
         fontWeight: 'bold',

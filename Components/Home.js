@@ -46,11 +46,12 @@ export default class Home extends Component {
     );
     render() {
         return !this.state.loading ? (
-        <View>
+        <View style={{backgroundColor:'#fff',flex:1}}>
             {
                     this.books.length === 0 ? (
-                        <View styles={styles.nullContainer}>
-                            <Text styles={styles.nullText}>Books are not available ..</Text>
+                        <View style={styles.nullContainer}>
+                            <Image source={require('../assets/not_found.png')} style={styles.notFoundImage}/>
+                            <Text style={styles.nullText}>Books are not available</Text>
                         </View>
                 ): (
                 <FlatList
@@ -106,12 +107,18 @@ const styles = StyleSheet.create({
     },
     nullContainer: {
         flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center'
+        justifyContent:'center',
+        backgroundColor:'#fff',
+        alignItems:'center',
+    },
+    notFoundImage:{
+        height:200,
+        width:'80%',
+        alignSelf:'center'
     },
     nullText: {
-        fontWeight: 'bold',
-        color: '#00695c',
+        backgroundColor:'#fff',
+        alignSelf:'center',
         fontSize: 20
     }
 });

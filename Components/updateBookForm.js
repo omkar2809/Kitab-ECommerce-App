@@ -158,32 +158,27 @@ export default class updateBookForm extends Component {
 
 const styles = StyleSheet.create({
     container: {
-        alignItems: 'center',
         justifyContent: 'center',
-        margin: 20,
-        flex: 1
+        flex: 1,
+        backgroundColor:'#fff'
     },
     formInput: {
-        borderColor: '#00695c',
-        marginBottom: 5,
-        borderWidth: 4,
-        borderBottomWidth: 4
+        borderRadius:9,
+        height:40,
+        backgroundColor:'#dee2e6',
+        paddingHorizontal:15
     },
     formButton: {
         margin: 60
     },
     buttonStyle: {
-        backgroundColor: '#ffeb3b',
-        borderWidth: 6,
-        color: '#FFFFFF',
-        borderColor: '#ffeb3b',
+        backgroundColor: '#613dc1',
         height: 40,
         alignItems: 'center',
         justifyContent: 'center',
-        borderRadius: 30,
-        marginLeft: 35,
-        marginRight: 35,
+        borderRadius: 9,
         marginTop: 15,
+        marginHorizontal:50
     },
     textStyle: {
         backgroundColor: '#fff',
@@ -194,36 +189,43 @@ const styles = StyleSheet.create({
         textAlign: 'center',
     },
     buttonTextStyle: {
-        color: '#00695c',
-        paddingVertical: 10,
+        color: '#fff',
         fontSize: 16,
     },
     loginBtn:{
-        width:"80%",
-        backgroundColor:"#00695c",
-        borderRadius:25,
-        height:50,
+        // width:"80%",
+        marginHorizontal:15,
+        backgroundColor:"#613dc1",
+        borderRadius:9,
+        height:45,
         alignItems:"center",
         justifyContent:"center",
         marginTop:40,
         marginBottom:10
     },
     loginText:{
-        color:"#ffeb3b"
+        color:"#fff"
     },
-    logo:{
+    logo: {
         fontWeight:"bold",
         fontSize:30,
-        color:"#00695c",
-        marginBottom:40
+        alignSelf:'center',
+        color:"#240046",
+        marginBottom: 40,
+        marginTop: 20
     },
     labelStyle: {
         fontWeight: 'bold',
-        color: '#00695c'
+        color: '#240046',
+        marginHorizontal:0,
+        marginBottom:1
     },
     photo: {
-        width: 375,
-        height:400,
-        borderRadius: 15
+        width: 300,
+        height:300,
+        borderRadius: 6,
+        marginHorizontal:15,
+        alignSelf:'center',
+        marginVertical:15
     }
 });
