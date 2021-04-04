@@ -13,10 +13,13 @@ export default class BookForm extends Component {
         imageUrl: '',
         title: '',
         description: '',
-        price: '',
+        price: 0,
         author: '',
         publisher: '',
         stock: 1,
+        errVal: {},
+        error: false,
+        errMessage: ''
     }
 
     componentDidMount() {
@@ -50,7 +53,36 @@ export default class BookForm extends Component {
     }
 
     handleSubmit = () => {
+        if (this.state.title.length == 0) {
+            this.setState({ errVal: { title: 'Title Required' } })
+            return
+        }
+        if (this.state.description.length == 0) {
+            this.setState({ errVal: { description: 'Description Required' } })
+            return
+        }
+        if (this.state.author.length == 0) {
+            this.setState({ errVal: { author: 'Author Required' } })
+            return
+        }
+        if (this.state.publisher.length == 0) {
+            this.setState({ errVal: { publisher: 'Publisher Required' } })
+            return
+        }
+        if (this.state.price <= 0) {
+            this.setState({ errVal: { price: 'Invalid Price' } })
+            return
+        }
+        if (this.state.stock <= 0) {
+            this.setState({ errVal: { stock: 'Invalid Stock' } })
+            return
+        }
+        if (this.state.file == null) {
+            this.setState({ error: true, errMessage: 'Please Select Image' })
+            return
+        }
         if (this.state.file != null) {
+            this.setState({error: false})
             const toast = Toast.showLoading('')
             getUser()
             .then(user => {
@@ -78,7 +110,7 @@ export default class BookForm extends Component {
                 this.props.navigation.navigate("Seller's Books")
             })
             .catch(err => {
-                console.log(err)
+                console.log(err.request)
                 Toast.hide(toast)
                 Toast.show('Something went wrong! Please try again..')
             })
@@ -99,6 +131,7 @@ export default class BookForm extends Component {
                             inputContainerStyle={styles.formInput}
                             label={'Title'}
                             labelStyle={styles.labelStyle}
+                            errorMessage={this.state.errVal.title ? this.state.errVal.title : null}
                             />
                         <Input
                             placeholder="Description"
@@ -107,6 +140,7 @@ export default class BookForm extends Component {
                             inputContainerStyle={styles.formInput}
                             label={'Description'}
                             labelStyle={styles.labelStyle}
+                            errorMessage={this.state.errVal.description ? this.state.errVal.description : null}
                             />
                         <Input
                             placeholder="Author"
@@ -114,6 +148,7 @@ export default class BookForm extends Component {
                             inputContainerStyle={styles.formInput}
                             label={'Author'}
                             labelStyle={styles.labelStyle}
+                            errorMessage={this.state.errVal.author ? this.state.errVal.author : null}
                             />
                         <Input
                             placeholder="Publisher"
@@ -121,6 +156,7 @@ export default class BookForm extends Component {
                             inputContainerStyle={styles.formInput}
                             label={'Publisher'}
                             labelStyle={styles.labelStyle}
+                            errorMessage={this.state.errVal.publisher ? this.state.errVal.publisher : null}
                             />
                         <Input
                             placeholder="Price"
@@ -129,6 +165,7 @@ export default class BookForm extends Component {
                             label={'Price'}
                             labelStyle={styles.labelStyle}
                             keyboardType="numeric"
+                            errorMessage={this.state.errVal.price ? this.state.errVal.price : null}
                             />
                         <Input
                             placeholder="Stock"
@@ -138,16 +175,24 @@ export default class BookForm extends Component {
                             labelStyle={styles.labelStyle}
                             keyboardType="numeric"
                             defaultValue={this.state.stock.toString()}
+                            errorMessage={this.state.errVal.stock ? this.state.errVal.stock : null}
                             />
 
                         {this.state.file != null ? (
                             <Image style={styles.photo} source={{ uri: this.state.file.uri }} />
                         ) : null}
+                        {
+                            this.state.error ? (
+                                <View >
+                                    <Text style={styles.error}>{this.state.errMessage }</Text>
+                                </View>
+                            ) : null
+                        }
                         <TouchableOpacity
                             style={styles.buttonStyle}
                             activeOpacity={0.5}
                             onPress={this.selectFile}>
-                            <Text style={styles.buttonTextStyle}>Select File</Text>
+                            <Text style={styles.buttonTextStyle}>Select Image</Text>
                         </TouchableOpacity>
                         <TouchableOpacity onPress={this.handleSubmit} style={styles.loginBtn}>
                             <Text style={styles.loginText}>Submit</Text>
@@ -230,5 +275,11 @@ const styles = StyleSheet.create({
         marginHorizontal:15,
         alignSelf:'center',
         marginVertical:15
-    }
+    },
+    error:{
+        color:"red",
+        fontSize: 11,
+        marginBottom: 8,
+        alignSelf: 'center'
+    },
 });

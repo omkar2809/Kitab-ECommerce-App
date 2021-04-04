@@ -43,6 +43,11 @@ export default class Orders extends Component {
                 .then(res => {
                     // console.log(res.data.orders)
                     this.orders = res.data.orders
+                    this.orders.sort((a, b) => {
+                        if (a.createdAt > b.createdAt) {
+                            return -1
+                        } else return 1
+                    })
                     this.setState({loading: false})
                     Toast.hide(toast)
                 })
@@ -129,14 +134,16 @@ export default class Orders extends Component {
 
 const styles = StyleSheet.create({
     root: {
-        backgroundColor: "#FFFFFF"
+        // backgroundColor: "#FFFFFF"
     },
     container: {
         padding: 16,
         flexDirection: 'row',
         borderBottomWidth: 1,
         borderColor: "#FFFFFF",
-        alignItems: 'flex-start'
+        alignItems: 'flex-start',
+        
+        backgroundColor:'#fff'
     },
     avatar: {
         width:55,

@@ -10,38 +10,58 @@ export default class ForgetPassword extends Component {
         email: '',
         OTP: '',
         password: '',
-        confirmPassword: '' 
+        confirmPassword: '',
+        error: false,
+        errMessage: ''
     }
 
     handleSendOTP = () => {
+        if (! /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/.test(this.state.email)) {
+            this.setState({ error: true, errMessage: 'Invalid Email' })
+            return
+        }
         const toast = Toast.showLoading('')
         sendOTP({ email: this.state.email })
             .then(res => {
                 console.log(res.data)
-                this.setState({generateOTP: true})    
+                this.setState({generateOTP: true, error: false})    
                 Toast.hide(toast)
             })
             .catch(err => {
-                console.log(err)
+                console.log(err.request)
                 Toast.hide(toast)
+                Toast.show('Something Went Wrong.')
             })
     }
 
     handleOTPVerification = () => {
+        if (this.state.OTP.length !== 6) {
+            this.setState({ error: true, errMessage: 'Please Enter Valid OTP' })
+            return
+        }
         const toast = Toast.showLoading('')
         verifyOTP({ email: this.state.email, OTP: this.state.OTP })
             .then(res => {
                 console.log(res.data)
-                this.setState({verified: true})
+                this.setState({verified: true, error: false})
                 Toast.hide(toast)
             })
             .catch(err => {
-                console.log(err)
                 Toast.hide(toast)
+                this.setState({error: true,errMessage: JSON.parse(err.request._response).message})
+                console.log(JSON.parse(err.request._response).message)
             })
     }
 
     handleSubmit = () => {
+        if (this.state.password.length == 0 && this.state.confirmPassword.length == 0) {
+            this.setState({error: true, errMessage: 'Required Fields Are Empty!'})
+            return
+        }
+        if (this.state.password !== this.state.confirmPassword) {
+            this.setState({error: true, errMessage: 'Password and Confirm Password Not Matching'})
+            return
+        }
         const toast = Toast.showLoading('')
         resetPassword({
             email: this.state.email,
@@ -58,6 +78,7 @@ export default class ForgetPassword extends Component {
             .catch(err => {
                 console.log(err)
                 Toast.hide(toast)
+                Toast.show('Something Went Wrong.')
             })
     }
 
@@ -71,7 +92,9 @@ export default class ForgetPassword extends Component {
                         style={styles.inputText}
                         placeholder="Email" 
                         placeholderTextColor="#003f5c"
-                        onChangeText={text => this.setState({email:text})}/>
+                        onChangeText={text => this.setState({ email: text.trim() })}
+                        editable={!this.state.generateOTP}
+                        />
                 </View>
                 {
                     !this.state.generateOTP ? (
@@ -117,6 +140,13 @@ export default class ForgetPassword extends Component {
                                     </View>
                             )
                     )
+                }
+                {
+                    this.state.error ? (
+                        <View >
+                            <Text style={styles.error}>{this.state.errMessage }</Text>
+                        </View>
+                    ) : null
                 }
             </View>
         )
@@ -170,5 +200,11 @@ const styles = StyleSheet.create({
         alignSelf:'center',
         width: 130,
         height: 130
-    }
+    },
+    error:{
+        color:"red",
+        fontSize: 11,
+        marginBottom: 8,
+        alignSelf: 'center'
+    },
 });

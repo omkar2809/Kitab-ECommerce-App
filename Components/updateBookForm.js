@@ -11,7 +11,8 @@ export default class updateBookForm extends Component {
         file: null,
         fileName: '',
         imageUrl: '',
-        loading: true
+        loading: true,
+        errVal: {}
     }
     originalBookDetails = {}
     updatedBookDetails = {}
@@ -50,6 +51,7 @@ export default class updateBookForm extends Component {
     }
 
     handleSubmit = () => {
+        console.log(this.updatedBookDetails)
         const toast = Toast.showLoading('')
         getUser()
         .then(user => {
@@ -68,7 +70,7 @@ export default class updateBookForm extends Component {
             this.props.navigation.navigate("Seller's Books")
         })
         .catch(err => {
-            console.log(err)
+            console.log(err.request)
             Toast.hide(toast)
             Toast.show('Something went wrong! Please try again..')
         })
@@ -89,6 +91,7 @@ export default class updateBookForm extends Component {
                             label={'Title'}
                             labelStyle={styles.labelStyle}
                             defaultValue={this.originalBookDetails.title}
+                            errorMessage={this.state.errVal.title ? this.state.errVal.title : null}
                             />
                         <Input
                             placeholder="Description"
@@ -98,6 +101,7 @@ export default class updateBookForm extends Component {
                             label={'Description'}
                             labelStyle={styles.labelStyle}
                             defaultValue={this.originalBookDetails.description}
+                            errorMessage={this.state.errVal.description ? this.state.errVal.description : null}
                             />
                         <Input
                             placeholder="Author"
@@ -106,6 +110,7 @@ export default class updateBookForm extends Component {
                             label={'Author'}
                             labelStyle={styles.labelStyle}
                             defaultValue={this.originalBookDetails.author}
+                            errorMessage={this.state.errVal.author ? this.state.errVal.author : null}
                             />
                         <Input
                             placeholder="Publisher"
@@ -114,6 +119,7 @@ export default class updateBookForm extends Component {
                             label={'Publisher'}
                             labelStyle={styles.labelStyle}
                             defaultValue={this.originalBookDetails.publisher}
+                            errorMessage={this.state.errVal.publisher ? this.state.errVal.publisher : null}
                             />
                         <Input
                             placeholder="Price"
@@ -123,6 +129,7 @@ export default class updateBookForm extends Component {
                             labelStyle={styles.labelStyle}
                             keyboardType="numeric"
                             defaultValue={this.originalBookDetails.price.toString()}
+                            errorMessage={this.state.errVal.price ? this.state.errVal.price : null}
                             />
                         <Input
                             placeholder="Stock"
@@ -132,6 +139,7 @@ export default class updateBookForm extends Component {
                             labelStyle={styles.labelStyle}
                             keyboardType="numeric"
                             defaultValue={this.originalBookDetails.stock.toString()}
+                            errorMessage={this.state.errVal.stock ? this.state.errVal.stock : null}
                             />
 
 

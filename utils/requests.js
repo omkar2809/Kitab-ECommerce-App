@@ -82,4 +82,4 @@ export const getOrders = (headers) => {
     return axios.get(`${baseUrl}/getOrders`, headers)
 }
 
-export default req = { login, signUp }
+// export default req = { login, signUp }

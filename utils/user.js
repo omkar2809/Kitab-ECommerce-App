@@ -60,4 +60,4 @@ export const isAuthenticated = (user = undefined) => {
     })
 }
 
-export default req = { setUserData, deleteUser, getUser, isAuthenticated }
+// export default req = { setUserData, deleteUser, getUser, isAuthenticated }
